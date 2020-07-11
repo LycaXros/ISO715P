@@ -23,7 +23,8 @@ import javax.validation.ConstraintViolationException;
  * Represents an abstract shell of to be used as JSF Controller to be used in
  * AJAX-enabled applications. No outcomes will be generated from its methods
  * since handling is designed to be done inside one page.
- * @param <T>   the concrete Entity type of the Controller bean to be created
+ *
+ * @param <T> the concrete Entity type of the Controller bean to be created
  */
 public abstract class AbstractController<T> implements Serializable {
 
@@ -36,7 +37,6 @@ public abstract class AbstractController<T> implements Serializable {
     private Collection<T> items;
     private LazyEntityDataModel<T> lazyItems;
     private List<T> filteredItems;
-
 
     private enum PersistAction {
         CREATE,
@@ -52,29 +52,30 @@ public abstract class AbstractController<T> implements Serializable {
     }
 
     /**
-     * Retrieve the current EJB Facade object so that other beans in this package
-     * can perform additional data layer tasks (e.g. additional queries)
+     * Retrieve the current EJB Facade object so that other beans in this
+     * package can perform additional data layer tasks (e.g. additional queries)
      *
-     * @return  the concrete EJB Facade associated with the concrete controller bean.
+     * @return the concrete EJB Facade associated with the concrete controller
+     * bean.
      */
     protected AbstractFacade<T> getFacade() {
         return ejbFacade;
     }
 
-    
     /**
      * Set any isChildEntityEmpty flags, if any children are defined in entity.
      * This method should be overridden inside specific entity controllers if
-     * the entity has any OneToMany relationships. (see specific controllers
-     * for more detail.
+     * the entity has any OneToMany relationships. (see specific controllers for
+     * more detail.
      *
      */
-    protected void setChildrenEmptyFlags() {}
+    protected void setChildrenEmptyFlags() {
+    }
 
     /**
      * Retrieve the currently selected item.
      *
-     * @return  the currently selected Entity
+     * @return the currently selected Entity
      */
     public T getSelected() {
         return selected;
@@ -83,7 +84,7 @@ public abstract class AbstractController<T> implements Serializable {
     /**
      * Pass in the currently selected item.
      *
-     * @param selected  the Entity that should be set as selected
+     * @param selected the Entity that should be set as selected
      */
     public void setSelected(T selected) {
         if (selected != null) {
@@ -97,13 +98,15 @@ public abstract class AbstractController<T> implements Serializable {
     }
 
     /**
-     * Sets any embeddable key fields if an Entity uses composite keys.
-     * If the entity does not have composite keys, this method performs no actions
-     * and exists purely to be overridden inside a concrete controller class.
+     * Sets any embeddable key fields if an Entity uses composite keys. If the
+     * entity does not have composite keys, this method performs no actions and
+     * exists purely to be overridden inside a concrete controller class.
      */
     protected void setEmbeddableKeys() {
         // Nothing to do if entity does not have any embeddable key.
-    };
+    }
+
+    ;
 
     /**
      * Sets the concrete embedded key of an Entity that uses composite keys.
@@ -117,7 +120,7 @@ public abstract class AbstractController<T> implements Serializable {
     /**
      * Returns all items as a Collection object.
      *
-     * @return  a collection of Entity items returned by the data layer
+     * @return a collection of Entity items returned by the data layer
      */
     public Collection<T> getItems() {
         if (items == null) {
@@ -169,7 +172,8 @@ public abstract class AbstractController<T> implements Serializable {
     /**
      * Apply changes to an existing item to the data layer.
      *
-     * @param event an event from the widget that wants to save an Entity to the data layer
+     * @param event an event from the widget that wants to save an Entity to the
+     * data layer
      */
     public void save(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(itemClass.getSimpleName() + "Updated");
@@ -196,7 +200,8 @@ public abstract class AbstractController<T> implements Serializable {
     /**
      * Store a new item in the data layer.
      *
-     * @param event an event from the widget that wants to save a new Entity to the data layer
+     * @param event an event from the widget that wants to save a new Entity to
+     * the data layer
      */
     public void saveNew(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(itemClass.getSimpleName() + "Created");
@@ -210,7 +215,8 @@ public abstract class AbstractController<T> implements Serializable {
     /**
      * Remove an existing item from the data layer.
      *
-     * @param event an event from the widget that wants to delete an Entity from the data layer
+     * @param event an event from the widget that wants to delete an Entity from
+     * the data layer
      */
     public void delete(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(itemClass.getSimpleName() + "Deleted");
@@ -224,11 +230,13 @@ public abstract class AbstractController<T> implements Serializable {
 
     /**
      * Performs any data modification actions for an entity. The actions that
-     * can be performed by this method are controlled by the {@link PersistAction}
-     * enumeration and are either CREATE, EDIT or DELETE.
+     * can be performed by this method are controlled by the
+     * {@link PersistAction} enumeration and are either CREATE, EDIT or DELETE.
      *
-     * @param persistAction     a specific action that should be performed on the current item
-     * @param successMessage    a message that should be displayed when persisting the item succeeds
+     * @param persistAction a specific action that should be performed on the
+     * current item
+     * @param successMessage a message that should be displayed when persisting
+     * the item succeeds
      */
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
@@ -269,8 +277,9 @@ public abstract class AbstractController<T> implements Serializable {
      * Creates a new instance of an underlying entity and assigns it to Selected
      * property.
      *
-     * @param event an event from the widget that wants to create a new, unmanaged Entity for the data layer
-     * @return      a new, unmanaged Entity
+     * @param event an event from the widget that wants to create a new,
+     * unmanaged Entity for the data layer
+     * @return a new, unmanaged Entity
      */
     public T prepareCreate(ActionEvent event) {
         T newItem;
@@ -288,7 +297,7 @@ public abstract class AbstractController<T> implements Serializable {
     /**
      * Inform the user interface whether any validation error exist on a page.
      *
-     * @return  a logical value whether form validation has passed or failed
+     * @return a logical value whether form validation has passed or failed
      */
     public boolean isValidationFailed() {
         return JsfUtil.isValidationFailed();
@@ -297,16 +306,17 @@ public abstract class AbstractController<T> implements Serializable {
     /**
      * Retrieve all messages as a String to be displayed on the page.
      *
-     * @param clientComponent   the component for which the message applies
-     * @param defaultMessage    a default message to be shown
-     * @return                  a concatenation of all messages
+     * @param clientComponent the component for which the message applies
+     * @param defaultMessage a default message to be shown
+     * @return a concatenation of all messages
      */
     public String getComponentMessages(String clientComponent, String defaultMessage) {
         return JsfUtil.getComponentMessages(clientComponent, defaultMessage);
     }
 
     /**
-     * Retrieve a collection of Entity items for a specific Controller from another JSF page via Request parameters.
+     * Retrieve a collection of Entity items for a specific Controller from
+     * another JSF page via Request parameters.
      */
     @PostConstruct
     public void initParams() {
@@ -316,7 +326,6 @@ public abstract class AbstractController<T> implements Serializable {
             setLazyItems((Collection<T>) paramItems);
         }
     }
-
 
     private List<T> refreshItem(T item, Collection<T> items) {
         // Use List#set to replace the existing instance of this entity
@@ -328,12 +337,13 @@ public abstract class AbstractController<T> implements Serializable {
             itemList = new ArrayList<>(items);
         }
         int i = itemList.indexOf(item);
-        if (i >= 0 ) {
+        if (i >= 0) {
             try {
                 itemList.set(i, item);
             } catch (UnsupportedOperationException ex) {
                 return refreshItem(item, new ArrayList<>(items));
-            }        }
+            }
+        }
         return itemList;
     }
 }

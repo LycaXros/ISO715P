@@ -52,11 +52,6 @@
                             <h:outputText value="#{myBundle.ViewEmpleadoLabel_estado}"/>
                             <h:selectBooleanCheckbox id="estado" value="#{empleadoController.selected.estado}" title="#{myBundle.EditEmpleadoTitle_estado}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_estado}" disabled="true"/>
                         </pm:field>
-
-                        <pm:field>
-                            <h:outputText value="#{myBundle.ViewEmpleadoLabel_credencial}"/>
-                            <h:outputText value="#{empleadoController.selected.credencial.username}"/>
-                        </pm:field>
                     </p:outputPanel>
                 </h:panelGroup>
 

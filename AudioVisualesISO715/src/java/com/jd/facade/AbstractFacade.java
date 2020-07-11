@@ -16,7 +16,6 @@ import javax.persistence.criteria.Root;
 /**
  *
  * @author Master
- * @param <T>
  */
 public abstract class AbstractFacade<T> {
 
@@ -213,5 +212,5 @@ public abstract class AbstractFacade<T> {
     public T findWithParents(T entity) {
         return entity;
     }
-
+    
 }
