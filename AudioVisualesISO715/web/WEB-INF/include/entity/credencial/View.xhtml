@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CredencialViewDlg" widgetVar="CredencialViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCredencialTitle}" closeOnEscape="true">
+
+            <h:form id="CredencialViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{credencialController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCredencialLabel_idEmpleado}"/>
+                        <h:outputText value="#{credencialController.selected.idEmpleado}" title="#{myBundle.ViewCredencialTitle_idEmpleado}"/>
+
+                        <h:outputText value="#{myBundle.ViewCredencialLabel_username}"/>
+                        <h:outputText value="#{credencialController.selected.username}" title="#{myBundle.ViewCredencialTitle_username}"/>
+
+                        <h:outputText value="#{myBundle.ViewCredencialLabel_password}"/>
+                        <h:outputText value="#{credencialController.selected.password}" title="#{myBundle.ViewCredencialTitle_password}"/>
+
+                        <h:outputText value="#{myBundle.ViewCredencialLabel_estado}"/>
+                        <p:selectBooleanCheckbox id="estado" value="#{credencialController.selected.estado}" title="#{myBundle.EditCredencialTitle_estado}" required="true" requiredMessage="#{myBundle.EditCredencialRequiredMessage_estado}"/>
+
+                        <h:outputText value="#{myBundle.ViewCredencialLabel_empleado}"/>
+                        <h:outputText value="#{credencialController.selected.empleado.idEmpleado}"/>
+
+                        <h:outputText value="#{myBundle.ViewCredencialLabel_idRol}"/>
+                        <h:outputText value="#{credencialController.selected.idRol.descripcion}"/>
+                    </p:panelGrid>
+                  <p:commandButton value="#{myBundle.Close}" onclick="PF('CredencialViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

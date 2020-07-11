@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RentadevolucionViewDlg" widgetVar="RentadevolucionViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewRentadevolucionTitle}" closeOnEscape="true">
+
+            <h:form id="RentadevolucionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{rentadevolucionController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewRentadevolucionLabel_noPrestamo}"/>
+                        <h:outputText value="#{rentadevolucionController.selected.noPrestamo}" title="#{myBundle.ViewRentadevolucionTitle_noPrestamo}"/>
+
+                        <h:outputText value="#{myBundle.ViewRentadevolucionLabel_fechaPrestamo}"/>
+                        <h:outputText value="#{rentadevolucionController.selected.fechaPrestamo}" title="#{myBundle.ViewRentadevolucionTitle_fechaPrestamo}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRentadevolucionLabel_fechaDevolucion}"/>
+                        <h:outputText value="#{rentadevolucionController.selected.fechaDevolucion}" title="#{myBundle.ViewRentadevolucionTitle_fechaDevolucion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRentadevolucionLabel_comentario}"/>
+                        <h:outputText value="#{rentadevolucionController.selected.comentario}" title="#{myBundle.ViewRentadevolucionTitle_comentario}"/>
+
+                        <h:outputText value="#{myBundle.ViewRentadevolucionLabel_estado}"/>
+                        <p:selectBooleanCheckbox id="estado" value="#{rentadevolucionController.selected.estado}" title="#{myBundle.EditRentadevolucionTitle_estado}" required="true" requiredMessage="#{myBundle.EditRentadevolucionRequiredMessage_estado}"/>
+
+                        <h:outputText value="#{myBundle.ViewRentadevolucionLabel_idEmpleado}"/>
+                        <h:outputText value="#{rentadevolucionController.selected.idEmpleado.idEmpleado}"/>
+
+                        <h:outputText value="#{myBundle.ViewRentadevolucionLabel_idEquipo}"/>
+                        <h:outputText value="#{rentadevolucionController.selected.idEquipo.descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewRentadevolucionLabel_idUsuario}"/>
+                        <h:outputText value="#{rentadevolucionController.selected.idUsuario.idusuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('RentadevolucionViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

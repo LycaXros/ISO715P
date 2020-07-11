@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TipopersonaListForm">
+
+        <p:panel header="#{myBundle.ListTipopersonaTitle}">
+            <p:contextMenu id="TipopersonaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TipopersonaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TipopersonaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TipopersonaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TipopersonaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TipopersonaMenuItem_usuarioCollection}" icon="ui-icon-search"  action="#{tipopersonaController.navigateUsuarioCollection}" disabled="#{tipopersonaController.isUsuarioCollectionEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{tipopersonaController.items}"
+                         lazy="false"
+                         rowKey="#{item.idTipoPesona}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{tipopersonaController.selected}"
+                         filteredValue="#{tipopersonaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{tipopersonaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idTipoPesona}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TipopersonaDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TipopersonaDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TipopersonaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idTipoPesona}" filterBy="#{item.idTipoPesona}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipopersonaTitle_idTipoPesona}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoPesona}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipopersonaTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipopersonaTitle_estado}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="estado" value="#{item.estado}" title="#{myBundle.EditTipopersonaTitle_estado}" required="true" requiredMessage="#{myBundle.EditTipopersonaRequiredMessage_estado}" disabled="true"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{tipopersonaController.prepareCreate}" update=":TipopersonaCreateForm" oncomplete="PF('TipopersonaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TipopersonaViewForm" oncomplete="PF('TipopersonaViewDialog').show()" disabled="#{empty tipopersonaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TipopersonaEditForm" oncomplete="PF('TipopersonaEditDialog').show()" disabled="#{empty tipopersonaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tipopersonaController.delete}" update=":growl,datalist" disabled="#{empty tipopersonaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CredencialViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewCredencialTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CredencialListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CredencialViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{credencialController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCredencialLabel_idEmpleado}"/>
+                            <h:outputText value="#{credencialController.selected.idEmpleado}" title="#{myBundle.ViewCredencialTitle_idEmpleado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCredencialLabel_username}"/>
+                            <h:outputText value="#{credencialController.selected.username}" title="#{myBundle.ViewCredencialTitle_username}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCredencialLabel_password}"/>
+                            <h:outputText value="#{credencialController.selected.password}" title="#{myBundle.ViewCredencialTitle_password}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCredencialLabel_estado}"/>
+                            <h:selectBooleanCheckbox id="estado" value="#{credencialController.selected.estado}" title="#{myBundle.EditCredencialTitle_estado}" required="true" requiredMessage="#{myBundle.EditCredencialRequiredMessage_estado}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCredencialLabel_empleado}"/>
+                            <h:outputText value="#{credencialController.selected.empleado.idEmpleado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCredencialLabel_idRol}"/>
+                            <h:outputText value="#{credencialController.selected.idRol.descripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

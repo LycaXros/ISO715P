@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EquipoCreateDlg" widgetVar="EquipoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateEquipoTitle}" closeOnEscape="true">
+
+            <h:form id="EquipoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{equipoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateEquipoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{equipoController.selected.descripcion}" title="#{myBundle.CreateEquipoTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateEquipoRequiredMessage_descripcion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipoLabel_noSerial}" for="noSerial" />
+                        <p:inputText id="noSerial" value="#{equipoController.selected.noSerial}" title="#{myBundle.CreateEquipoTitle_noSerial}" required="true" requiredMessage="#{myBundle.CreateEquipoRequiredMessage_noSerial}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipoLabel_serviceTag}" for="serviceTag" />
+                        <p:inputText id="serviceTag" value="#{equipoController.selected.serviceTag}" title="#{myBundle.CreateEquipoTitle_serviceTag}" required="true" requiredMessage="#{myBundle.CreateEquipoRequiredMessage_serviceTag}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipoLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{equipoController.selected.estado}" required="true" requiredMessage="#{myBundle.CreateEquipoRequiredMessage_estado}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipoLabel_idModelo}" for="idModelo" />
+                        <p:selectOneMenu id="idModelo" value="#{equipoController.selected.idModelo}"  converter="modelosConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{modelosController.items}"
+                                           var="idModeloItem"
+                                           itemValue="#{idModeloItem}"
+                                           itemLabel="#{idModeloItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipoLabel_idTecConexion}" for="idTecConexion" />
+                        <p:selectOneMenu id="idTecConexion" value="#{equipoController.selected.idTecConexion}"  converter="tecconexionConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tecconexionController.items}"
+                                           var="idTecConexionItem"
+                                           itemValue="#{idTecConexionItem}"
+                                           itemLabel="#{idTecConexionItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipoLabel_idTipoEquipo}" for="idTipoEquipo" />
+                        <p:selectOneMenu id="idTipoEquipo" value="#{equipoController.selected.idTipoEquipo}"  converter="tipoequipoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoequipoController.items}"
+                                           var="idTipoEquipoItem"
+                                           itemValue="#{idTipoEquipoItem}"
+                                           itemLabel="#{idTipoEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{equipoController.saveNew}" value="#{myBundle.Save}" update="display,:EquipoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EquipoCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EquipoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
