@@ -10,4 +10,7 @@
         </resource-bundle>
         <navigation-handler>org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
     </application>
+    <lifecycle>
+        <phase-listener> utils.AuthorizationListener </phase-listener>
+    </lifecycle>
 </faces-config>

@@ -1,46 +1,43 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-
-      >
+      xmlns:p="http://primefaces.org/ui"          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>login</title>
+        <title>LOGIN</title>        
+        <h:outputStylesheet library="css" name="login.css"/>
     </h:head>
     <h:body>
-        <h:form id="loginForm">
+        <div class="container">
+            <h:form> 
 
-          
-            <p:growl id="msg" showDetail="true" life="3000" />
-            <p:panel header="Login" style="width: 360px;">
+                <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+                <p:panel header="Ingrese su nombre de usuario y contraseña" >
+                    <h:panelGrid columns="2" cellpadding="5" >
+                        <h:outputLabel for="username" value="Nombre de Usuario: " />
+                        <p:inputText id="username" value="#{UserLoginView.credencial.username}" required="true" label="username" />
 
-                <h:panelGrid id="loginPanel" columns="2">
+                        <h:outputLabel for="password" value="Contraseña: " />
+                        <p:password id="password" value="#{UserLoginView.credencial.password}" required="true" label="password" />
 
-                    <h:outputText value="Username" />
-
-                    <p:inputText id="username" value="#{loginBean.uname}" ></p:inputText>
-
-                    <p:spacer></p:spacer>
-
-                    <p:message for="username" ></p:message>
-
-                    <h:outputText value="Password" />
-
-                    <p:password id="password" value="#{loginBean.password}"  feedback="false"></p:password>
-
-                    <p:spacer></p:spacer>
-
-                    <p:message for="password"></p:message>
-
-                    <p:spacer></p:spacer>
-
-                    <p:commandButton action="#{loginBean.loginProject}" value="Login" update="loginForm" ajax="true"></p:commandButton>
-
-                </h:panelGrid>
-
-            </p:panel>
-
-        </h:form>
+                        <f:facet name="footer">
+                            <p:commandButton value="Login" update="growl" 
+                                             action="#{UserLoginView.login()}" icon="icon-login"
+                                             oncomplete="handleLoginRequest(xhr, status, args)" />
+                        </f:facet>  
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (!args.validationFailed || args.loggedIn) {
+                    setTimeout(function () {
+                        window.location = args.view;
+                    }, 500);
+                }
+            }
+        </script>
 
     </h:body> 
 

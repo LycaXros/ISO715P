@@ -15,6 +15,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.jd.entities.Empleado;
 import com.jd.entities.Rol;
+import dao.LoginDao;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -58,5 +62,31 @@ public class CredencialFacade extends AbstractFacade<Credencial> {
     public Rol findIdRol(Credencial entity) {
         return this.getMergedEntity(entity).getIdRol();
     }
-    
+
+    public Credencial FindByUsername(LoginDao cd) {
+        Credencial model = null;
+        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("AudioVisualesV2PU");
+        EntityManager entitymanager = emfactory.createEntityManager();
+        try {
+            //CriteriaBuilder cb = em.getCriteriaBuilder();
+            Query q = entitymanager.createNamedQuery("Credencial.findByUsername");
+            q.setParameter("username", cd.getUsername());
+            model = (Credencial) q.getSingleResult();
+
+        } catch (Exception e) {
+            entitymanager.getTransaction().rollback();
+        }
+
+        return model;
+    }
+
+    public Credencial CheckLogin(LoginDao cd) {
+        Credencial model = this.FindByUsername(cd);
+        if (model != null) {
+            if (!cd.getPassword().equals(model.getPassword())) {
+                model = null;
+            }
+        }
+        return model;
+    }
 }
