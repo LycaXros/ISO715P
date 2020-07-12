@@ -22,11 +22,26 @@
                         <p:inputText id="nombre" value="#{empleadoController.selected.nombre}" title="#{myBundle.EditEmpleadoTitle_nombre}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_nombre}" size="150" maxlength="150"/>
 
                         <p:outputLabel value="#{myBundle.EditEmpleadoLabel_cedula}" for="cedula" />
-                        <p:inputText id="cedula" value="#{empleadoController.selected.cedula}" title="#{myBundle.EditEmpleadoTitle_cedula}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_cedula}" size="15" maxlength="15"/>
+                        <p:inputMask id="cedula" value="#{empleadoController.selected.cedula}"
+                                     title="#{myBundle.EditEmpleadoTitle_cedula}" required="true" 
+                                     requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_cedula}" size="15" maxlength="15"
+                                     mask="999-9999999-9">
+                            <f:validator validatorId="validators.CedulaValidator" />
+                        </p:inputMask>
 
                         <p:outputLabel value="#{myBundle.EditEmpleadoLabel_tandaLabor}" for="tandaLabor" />
-                        <p:inputText id="tandaLabor" value="#{empleadoController.selected.tandaLabor}" title="#{myBundle.EditEmpleadoTitle_tandaLabor}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_tandaLabor}" size="45" maxlength="45"/>
-
+                        <p:selectOneMenu id="tandaLabor" value="#{empleadoController.selected.tandaLabor}" 
+                                         required="true" requiredMessage="#{myBundle.CreateEmpleadoRequiredMessage_tandaLabor}" maxlength="45"> 
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItem itemValue="Matutina" itemLabel="Matutina (8am - 5pm)" />
+                            <f:selectItem itemValue="Vespertina" itemLabel="Vespertina (1pm - 10pm)"  />
+                            <f:selectItem itemValue="Nocturna" itemLabel="Nocturna  (9pm - 6am)" />
+                            <f:facet name="footer">
+                                <p:separator />
+                                <h:outputText value="3 Tandas" style="font-weight:bold;"/>
+                            </f:facet>
+                        </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{myBundle.EditEmpleadoLabel_fechaIngreso}" for="fechaIngreso" />
                         <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaIngreso}" title="#{myBundle.EditEmpleadoTitle_fechaIngreso}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_fechaIngreso}" showOn="button"/>
 

@@ -24,7 +24,7 @@
                     <p:menuitem value="#{myBundle.TipousuarioHeading}..." outcome="/app/tipousuario/index" />
                     <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/app/usuario/index" />
                 </p:submenu>
-                <p:menuitem value="#{myBundle.Mobile}" outcome="/mobile/index" icon="ui-icon-signal"/>
+                <p:menuitem value="#{myBundle.Mobile}" outcome="/mobile/index" icon="ui-icon-signal"  style="display: none;"/>
                 <p:menuitem value="Salir" actionListener="#{UserLoginView.logout}" icon="ui-icon-close"
                             oncomplete="handleLoggOutRequest(xhr, status, args)"/>
             </p:menubar>

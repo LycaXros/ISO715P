@@ -22,7 +22,13 @@
                         <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{myBundle.EditUsuarioTitle_nombre}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_nombre}" size="150" maxlength="150"/>
 
                         <p:outputLabel value="#{myBundle.EditUsuarioLabel_cedula}" for="cedula" />
-                        <p:inputText id="cedula" value="#{usuarioController.selected.cedula}" title="#{myBundle.EditUsuarioTitle_cedula}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_cedula}" size="15" maxlength="15"/>
+                        <p:inputMask id="cedula" value="#{usuarioController.selected.cedula}"
+                                     title="#{myBundle.EditUsuarioTitle_cedula}" required="true" 
+                                     requiredMessage="#{myBundle.EditUsuarioRequiredMessage_cedula}" size="15" maxlength="15"
+                                     mask="999-9999999-9"
+                                     >
+                            <f:validator validatorId="validators.CedulaValidator" />
+                        </p:inputMask>
 
                         <p:outputLabel value="#{myBundle.EditUsuarioLabel_noCarnet}" for="noCarnet" />
                         <p:inputText id="noCarnet" value="#{usuarioController.selected.noCarnet}" title="#{myBundle.EditUsuarioTitle_noCarnet}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_noCarnet}" size="10" maxlength="10"/>

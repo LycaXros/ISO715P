@@ -74,7 +74,7 @@ public class CredencialFacade extends AbstractFacade<Credencial> {
             model = (Credencial) q.getSingleResult();
 
         } catch (Exception e) {
-            entitymanager.getTransaction().rollback();
+            throw  e;
         }
 
         return model;
