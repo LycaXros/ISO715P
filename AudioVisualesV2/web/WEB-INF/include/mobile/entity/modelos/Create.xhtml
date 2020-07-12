@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ModelosCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateModelosTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ModelosListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ModelosCreateForm">
+
+                <h:panelGroup id="display" rendered="#{modelosController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateModelosLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" value="#{modelosController.selected.descripcion}" title="#{myBundle.CreateModelosTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateModelosRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateModelosLabel_estado}" for="estado" />
+                            <p:selectBooleanCheckbox id="estado" value="#{modelosController.selected.estado}" required="true" requiredMessage="#{myBundle.CreateModelosRequiredMessage_estado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateModelosLabel_idMarca}" for="idMarca" />
+                            <p:selectOneMenu id="idMarca" value="#{modelosController.selected.idMarca}" required="true" requiredMessage="#{myBundle.CreateModelosRequiredMessage_idMarca}" converter="marcasConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{marcasController.items}"
+                                               var="idMarcaItem"
+                                               itemValue="#{idMarcaItem}"
+                                               itemLabel="#{idMarcaItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{modelosController.saveNew}" value="#{myBundle.Save}" update="display,:ModelosListPage:ModelosListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ModelosListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

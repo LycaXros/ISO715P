@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <h:form id="menuForm">
+        <p:menu>
+            <p:submenu label="#{myBundle.Maintenance}">
+                <p:menuitem value="#{myBundle.CredencialHeading}..." outcome="/mobile/credencial/index" />
+                <p:menuitem value="#{myBundle.EmpleadoHeading}..." outcome="/mobile/empleado/index" />
+                <p:menuitem value="#{myBundle.EquipoHeading}..." outcome="/mobile/equipo/index" />
+                <p:menuitem value="#{myBundle.MarcasHeading}..." outcome="/mobile/marcas/index" />
+                <p:menuitem value="#{myBundle.ModelosHeading}..." outcome="/mobile/modelos/index" />
+                <p:menuitem value="#{myBundle.RentadevolucionHeading}..." outcome="/mobile/rentadevolucion/index" />
+                <p:menuitem value="#{myBundle.RolHeading}..." outcome="/mobile/rol/index" />
+                <p:menuitem value="#{myBundle.TecconexionHeading}..." outcome="/mobile/tecconexion/index" />
+                <p:menuitem value="#{myBundle.TipoequipoHeading}..." outcome="/mobile/tipoequipo/index" />
+                <p:menuitem value="#{myBundle.TipopersonaHeading}..." outcome="/mobile/tipopersona/index" />
+                <p:menuitem value="#{myBundle.TipousuarioHeading}..." outcome="/mobile/tipousuario/index" />
+                <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/mobile/usuario/index" />
+            </p:submenu>
+            <p:menuitem value="#{myBundle.FullApp}" outcome="/index" icon="ui-icon-home"/>
+        </p:menu>
+    </h:form>
+</ui:composition>

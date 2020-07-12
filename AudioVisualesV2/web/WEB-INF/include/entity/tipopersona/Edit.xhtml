@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipopersonaEditDlg" widgetVar="TipopersonaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipopersonaTitle}" closeOnEscape="true">
+
+            <h:form id="TipopersonaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipopersonaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipopersonaLabel_idTipoPesona}" for="idTipoPesona" />
+                        <h:outputText id="idTipoPesona" value="#{tipopersonaController.selected.idTipoPesona}" />
+
+                        <p:outputLabel value="#{myBundle.EditTipopersonaLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{tipopersonaController.selected.descripcion}" title="#{myBundle.EditTipopersonaTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditTipopersonaRequiredMessage_descripcion}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{myBundle.EditTipopersonaLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{tipopersonaController.selected.estado}" required="true" requiredMessage="#{myBundle.EditTipopersonaRequiredMessage_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipopersonaController.save}" value="#{myBundle.Save}" update="display,:TipopersonaListForm:datalist,:TipopersonaListForm:TipopersonaDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipopersonaEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipopersonaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

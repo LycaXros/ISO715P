@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="EquipoListPage">
+        <pm:header title="#{myBundle.ListEquipoTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":EquipoCreatePage:EquipoCreateForm" actionListener="#{equipoController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:EquipoCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="EquipoListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{equipoController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEquipoTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":EquipoEditPage:EquipoEditForm" action="pm:EquipoEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.idEquipo}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.descripcion}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.noSerial}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.serviceTag}"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="estado" value="#{item.estado}" title="#{myBundle.EditEquipoTitle_estado}" required="true" requiredMessage="#{myBundle.EditEquipoRequiredMessage_estado}" disabled="true"/>
+
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.idModelo.descripcion}"/>
+
+
+                            <ui:remove>
+                                ,&nbsp;
+                                <h:outputText value="#{item.idTecConexion.descripcion}"/>
+                            </ui:remove>
+
+                            <ui:remove>
+                                ,&nbsp;
+                                <h:outputText value="#{item.idTipoEquipo.descripcion}"/>
+                            </ui:remove>
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{equipoController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{myBundle.ListEquipoTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

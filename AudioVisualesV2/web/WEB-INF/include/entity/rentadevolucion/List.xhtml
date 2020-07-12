@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="RentadevolucionListForm">
+
+        <p:panel header="#{myBundle.ListRentadevolucionTitle}">
+            <p:contextMenu id="RentadevolucionDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('RentadevolucionListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('RentadevolucionListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('RentadevolucionListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('RentadevolucionListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.RentadevolucionMenuItem_idEmpleado}" icon="ui-icon-search"  actionListener="#{rentadevolucionController.prepareIdEmpleado}" update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" disabled="#{empty rentadevolucionController.selected.idEmpleado}"/>  
+                <p:menuitem value="#{myBundle.RentadevolucionMenuItem_idEquipo}" icon="ui-icon-search"  actionListener="#{rentadevolucionController.prepareIdEquipo}" update=":EquipoViewForm" oncomplete="PF('EquipoViewDialog').show()" disabled="#{empty rentadevolucionController.selected.idEquipo}"/>  
+                <p:menuitem value="#{myBundle.RentadevolucionMenuItem_idUsuario}" icon="ui-icon-search"  actionListener="#{rentadevolucionController.prepareIdUsuario}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty rentadevolucionController.selected.idUsuario}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{rentadevolucionController.items}"
+                         lazy="false"
+                         rowKey="#{item.noPrestamo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{rentadevolucionController.selected}"
+                         filteredValue="#{rentadevolucionController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{rentadevolucionController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.noPrestamo}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RentadevolucionDataTableContextMenu" listener="#{rentadevolucionController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RentadevolucionDataTableContextMenu" listener="#{rentadevolucionController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{rentadevolucionController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('RentadevolucionListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.noPrestamo}" filterBy="#{item.noPrestamo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRentadevolucionTitle_noPrestamo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.noPrestamo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaPrestamo}" filterBy="#{item.fechaPrestamo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRentadevolucionTitle_fechaPrestamo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaPrestamo}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaDevolucion}" filterBy="#{item.fechaDevolucion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRentadevolucionTitle_fechaDevolucion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaDevolucion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.comentario}" filterBy="#{item.comentario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRentadevolucionTitle_comentario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.comentario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRentadevolucionTitle_estado}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="estado" value="#{item.estado}" title="#{myBundle.EditRentadevolucionTitle_estado}" required="true" requiredMessage="#{myBundle.EditRentadevolucionRequiredMessage_estado}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idEmpleado.idEmpleado}" filterBy="#{item.idEmpleado.idEmpleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRentadevolucionTitle_idEmpleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEmpleado.idEmpleado}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idEquipo.descripcion}" filterBy="#{item.idEquipo.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListRentadevolucionTitle_idEquipo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idEquipo.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idUsuario.idusuario}" filterBy="#{item.idUsuario.idusuario}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListRentadevolucionTitle_idUsuario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idUsuario.idusuario}"/>
+                    </p:column>
+                </ui:remove>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{rentadevolucionController.prepareCreate}" update=":RentadevolucionCreateForm" oncomplete="PF('RentadevolucionCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":RentadevolucionViewForm" oncomplete="PF('RentadevolucionViewDialog').show()" disabled="#{empty rentadevolucionController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":RentadevolucionEditForm" oncomplete="PF('RentadevolucionEditDialog').show()" disabled="#{empty rentadevolucionController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{rentadevolucionController.delete}" update=":growl,datalist" disabled="#{empty rentadevolucionController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>
