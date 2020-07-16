@@ -66,7 +66,9 @@ public class CredencialFacade extends AbstractFacade<Credencial> {
     public Credencial FindByUsername(LoginDao cd) {
         Credencial model = null;
         EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("AudioVisualesV2PU");
-        EntityManager entitymanager = emfactory.createEntityManager();
+        EntityManager entitymanager
+                = this.getEntityManager();
+        //emfactory.createEntityManager();
         try {
             //CriteriaBuilder cb = em.getCriteriaBuilder();
             Query q = entitymanager.createNamedQuery("Credencial.findByUsername");
@@ -74,7 +76,7 @@ public class CredencialFacade extends AbstractFacade<Credencial> {
             model = (Credencial) q.getSingleResult();
 
         } catch (Exception e) {
-            throw  e;
+            throw e;
         }
 
         return model;

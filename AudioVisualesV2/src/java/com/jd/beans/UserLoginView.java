@@ -13,6 +13,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import utils.MyUtil;
@@ -27,6 +28,7 @@ public class UserLoginView implements Serializable{
      
     
     private LoginDao credencial;
+    @Inject
     private CredencialFacade CF;
 
     public UserLoginView() {
@@ -49,14 +51,14 @@ public class UserLoginView implements Serializable{
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean loggedIn;
-        String ruta= "";
+        String ruta= MyUtil.basePathLogin();
         
         Credencial CD  = this.CF.CheckLogin(this.credencial);
         if(CD != null) {
             loggedIn = true;
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", CD.getUsername());
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", CD.getUsername()+" - "+CD.getEmpleado().getNombre());
-            ruta =  MyUtil.basePathLogin()+"index.xhtml";
+            ruta+="index.xhtml";
         } else {
             loggedIn = false;
             message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Crendenciales incorrectas");
