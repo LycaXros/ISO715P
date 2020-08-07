@@ -119,6 +119,12 @@
                 <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
             </p:commandButton>
 
+            <h3>Export Page Data Only</h3>
+
+            <h:commandLink>
+                <p:graphicImage value="#{appBean.resourcePath}img/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="datalist" fileName="Equipos"/>
+            </h:commandLink>
         </p:panel>
         <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
     </h:form>

@@ -18,11 +18,16 @@ public class MyUtil {
 
     public static String basePathLogin()
     {
-        return "/AudioVisualesSHOP/faces/";
+        return "http://localhost:8080/AudioVisualesSHOP/faces/";
     }
     
     public static String basePath()
     {
         return "/faces/";
     }
+    public static String resourcePath()
+    {
+        return "http://localhost:8080/AudioVisualesSHOP/faces/resources/";
+    }
+    
 }

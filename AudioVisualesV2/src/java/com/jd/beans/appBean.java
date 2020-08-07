@@ -28,4 +28,7 @@ public class appBean {
     {
         return MyUtil.basePath();
     }
+    public String getResourcePath(){
+        return MyUtil.resourcePath();
+    }
 }
