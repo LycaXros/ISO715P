@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Equipo.findByDescripcion", query = "SELECT e FROM Equipo e WHERE e.descripcion = :descripcion")
     , @NamedQuery(name = "Equipo.findByNoSerial", query = "SELECT e FROM Equipo e WHERE e.noSerial = :noSerial")
     , @NamedQuery(name = "Equipo.findByServiceTag", query = "SELECT e FROM Equipo e WHERE e.serviceTag = :serviceTag")
-    , @NamedQuery(name = "Equipo.findByEstado", query = "SELECT e FROM Equipo e WHERE e.estado = :estado")})
+    , @NamedQuery(name = "Equipo.findByEstado", query = "SELECT e FROM Equipo e WHERE e.estado = :estado")
+    , @NamedQuery(name = "Equipo.NoRentados", query = "SELECT e FROM Equipo e WHERE e.rentado = :rentado")})
 public class Equipo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,6 +61,10 @@ public class Equipo implements Serializable {
     @Basic(optional = false)
     @NotNull
     private boolean estado;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    private String rentado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
     private Collection<Rentadevolucion> rentadevolucionCollection;
     @JoinColumn(name = "idModelo", referencedColumnName = "Id")
@@ -79,12 +84,13 @@ public class Equipo implements Serializable {
         this.idEquipo = idEquipo;
     }
 
-    public Equipo(Integer idEquipo, String descripcion, String noSerial, String serviceTag, boolean estado) {
+    public Equipo(Integer idEquipo, String descripcion, String noSerial, String serviceTag, boolean estado, String rentado) {
         this.idEquipo = idEquipo;
         this.descripcion = descripcion;
         this.noSerial = noSerial;
         this.serviceTag = serviceTag;
         this.estado = estado;
+        this.rentado = rentado;
     }
 
     public Integer getIdEquipo() {
@@ -126,6 +132,15 @@ public class Equipo implements Serializable {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public String getRentado() {
+        return rentado;
+    }
+
+    public void setRentado(String rentado) {
+        this.rentado = rentado;
+    }
+
 
     @XmlTransient
     public Collection<Rentadevolucion> getRentadevolucionCollection() {

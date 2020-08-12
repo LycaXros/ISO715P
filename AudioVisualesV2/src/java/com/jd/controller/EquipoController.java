@@ -15,6 +15,9 @@ import javax.inject.Inject;
 @ViewScoped
 public class EquipoController extends AbstractController<Equipo> {
 
+    private Collection<Equipo> itemsNoRentados;
+    private Collection<Equipo> itemsRentados;
+    
     @Inject
     private ModelosController idModeloController;
     @Inject
@@ -118,4 +121,20 @@ public class EquipoController extends AbstractController<Equipo> {
         }
     }
 
+    public Collection<Equipo> getItemsNoRentados() {
+        if(itemsNoRentados == null){
+            EquipoFacade ef = (EquipoFacade) this.getFacade();
+            itemsNoRentados = ef.getEquiposNoRentados();            
+        }        
+        return itemsNoRentados;
+    }
+
+    public Collection<Equipo> getItemsRentados() {
+        if(itemsRentados == null){
+            EquipoFacade ef = (EquipoFacade) this.getFacade();
+            itemsRentados = ef.getEquiposRentados();            
+        }        
+        return itemsRentados;
+    }
+ 
 }

@@ -17,7 +17,10 @@ import com.jd.entities.Rentadevolucion;
 import com.jd.entities.Modelos;
 import com.jd.entities.Tecconexion;
 import com.jd.entities.Tipoequipo;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -87,6 +90,34 @@ public class EquipoFacade extends AbstractFacade<Equipo> {
 
     public Tipoequipo findIdTipoEquipo(Equipo entity) {
         return this.getMergedEntity(entity).getIdTipoEquipo();
+    }
+
+    public Collection<Equipo> getEquiposNoRentados() {
+        List<Equipo> equipos = new ArrayList<Equipo>();
+         try {
+            //CriteriaBuilder cb = em.getCriteriaBuilder();
+            Query q = getEntityManager().createNamedQuery("Equipo.NoRentados");
+            q.setParameter("rentado", "N");
+            equipos =  q.getResultList();
+
+        } catch (Exception e) {
+            throw e;
+        }
+         return equipos;
+    }
+
+    public Collection<Equipo> getEquiposRentados() {
+        List<Equipo> equipos = new ArrayList<Equipo>();
+         try {
+            //CriteriaBuilder cb = em.getCriteriaBuilder();
+            Query q = getEntityManager().createNamedQuery("Equipo.NoRentados");
+            q.setParameter("rentado", "S");
+            equipos =  q.getResultList();
+
+        } catch (Exception e) {
+            throw e;
+        }
+         return equipos;
     }
     
 }

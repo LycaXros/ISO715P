@@ -41,7 +41,7 @@
                         <p:outputLabel value="#{myBundle.CreateRentadevolucionLabel_idEquipo}" for="idEquipo" />
                         <p:selectOneMenu id="idEquipo" value="#{rentadevolucionController.selected.idEquipo}" required="true" requiredMessage="#{myBundle.CreateRentadevolucionRequiredMessage_idEquipo}" converter="equipoConverter">
                             <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{equipoController.items}"
+                            <f:selectItems value="#{equipoController.itemsNoRentados}"
                                            var="idEquipoItem"
                                            itemValue="#{idEquipoItem}"
                                            itemLabel="#{idEquipoItem.descripcion.toString()}"

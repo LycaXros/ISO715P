@@ -85,6 +85,13 @@
                     <h:selectBooleanCheckbox id="estado" value="#{item.estado}" title="#{myBundle.EditEquipoTitle_estado}" required="true" requiredMessage="#{myBundle.EditEquipoRequiredMessage_estado}" disabled="true"/>
                 </p:column>
 
+                <p:column sortBy="#{item.rentado}" filterBy="#{item.rentado}">
+                    <f:facet name="header">
+                        <h:outputText value="Rentado"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rentado=='N' ? "Sin Rentar" : "Rentado"}" />
+                </p:column>
+
 
                 <p:column sortBy="#{item.idModelo.descripcion}" filterBy="#{item.idModelo.descripcion}">
                     <f:facet name="header">
