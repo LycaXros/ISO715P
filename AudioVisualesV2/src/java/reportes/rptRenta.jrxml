@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56f2c08d-0e3f-4e72-95c0-bac4fb6f5501">
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     rentadevolucion.`No_Prestamo` AS rentadevolucion_No_Prestamo,
+     rentadevolucion.`idEmpleado` AS rentadevolucion_idEmpleado,
+     rentadevolucion.`idEquipo` AS rentadevolucion_idEquipo,
+     rentadevolucion.`idUsuario` AS rentadevolucion_idUsuario,
+     rentadevolucion.`FechaPrestamo` AS rentadevolucion_FechaPrestamo,
+     rentadevolucion.`FechaDevolucion` AS rentadevolucion_FechaDevolucion,
+     rentadevolucion.`Comentario` AS rentadevolucion_Comentario,
+     rentadevolucion.`Estado` AS rentadevolucion_Estado,
+     marcas.`Id` AS marcas_Id,
+     marcas.`Descripcion` AS marcas_Descripcion,
+     marcas.`Estado` AS marcas_Estado,
+     modelos.`Id` AS modelos_Id,
+     modelos.`IdMarca` AS modelos_IdMarca,
+     modelos.`Descripcion` AS modelos_Descripcion,
+     modelos.`Estado` AS modelos_Estado,
+     equipo.`idEquipo` AS equipo_idEquipo,
+     equipo.`Descripcion` AS equipo_Descripcion,
+     equipo.`No_Serial` AS equipo_No_Serial,
+     equipo.`ServiceTag` AS equipo_ServiceTag,
+     equipo.`idTipoEquipo` AS equipo_idTipoEquipo,
+     equipo.`idModelo` AS equipo_idModelo,
+     equipo.`idTecConexion` AS equipo_idTecConexion,
+     equipo.`Estado` AS equipo_Estado,
+     equipo.`Rentado` AS equipo_Rentado,
+     tecconexion.`Id` AS tecconexion_Id,
+     tecconexion.`Descripcion` AS tecconexion_Descripcion,
+     tecconexion.`Estado` AS tecconexion_Estado,
+     tipoequipo.`Id` AS tipoequipo_Id,
+     tipoequipo.`Descripcion` AS tipoequipo_Descripcion,
+     tipoequipo.`Estado` AS tipoequipo_Estado
+FROM
+     `marcas` marcas INNER JOIN `modelos` modelos ON marcas.`Id` = modelos.`IdMarca`
+     INNER JOIN `equipo` equipo ON modelos.`Id` = equipo.`idModelo`
+     INNER JOIN `rentadevolucion` rentadevolucion ON equipo.`idEquipo` = rentadevolucion.`idEquipo`
+     INNER JOIN `tecconexion` tecconexion ON equipo.`idTecConexion` = tecconexion.`Id`
+     INNER JOIN `tipoequipo` tipoequipo ON equipo.`idTipoEquipo` = tipoequipo.`Id`]]>
+	</queryString>
+	<field name="rentadevolucion_No_Prestamo" class="java.lang.Integer"/>
+	<field name="rentadevolucion_FechaPrestamo" class="java.sql.Date"/>
+	<field name="rentadevolucion_Comentario" class="java.lang.String"/>
+	<field name="marcas_Descripcion" class="java.lang.String"/>
+	<field name="modelos_Descripcion" class="java.lang.String"/>
+	<field name="equipo_Descripcion" class="java.lang.String"/>
+	<field name="tecconexion_Descripcion" class="java.lang.String"/>
+	<field name="tipoequipo_Descripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="d2f2d29c-2187-4375-bc06-edc09161e694"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="551e2087-2b67-479a-a33e-f896744b371e"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Green Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="47949197-0fcc-47ec-8f73-82ec23abc420"/>
+				<text><![CDATA[Leaf Green SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="7dcba244-f4fa-495b-afac-1632b94f9674"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="aa72ce85-af8c-44c3-aaf0-e91e3b4e9db1"/>
+				<text><![CDATA[rentadevolucion_No_Prestamo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="69" y="19" width="69" height="15" uuid="bc1c4af9-5650-4bac-951e-f929f65ff37f"/>
+				<text><![CDATA[rentadevolucion_FechaPrestamo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="138" y="19" width="69" height="15" uuid="4b89f4c4-b8f1-4d6e-b6bc-b1c80bce5db0"/>
+				<text><![CDATA[rentadevolucion_Comentario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="207" y="19" width="69" height="15" uuid="987b9574-cba4-4654-9f5d-d633e6a97315"/>
+				<text><![CDATA[marcas_Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="19" width="69" height="15" uuid="4308a16b-1792-4e1b-80ca-f1c82bc671db"/>
+				<text><![CDATA[modelos_Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="345" y="19" width="69" height="15" uuid="f0cc18ba-6f90-42c1-a0f1-1276b5d0a768"/>
+				<text><![CDATA[equipo_Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="414" y="19" width="69" height="15" uuid="c38a3c80-a792-4720-8797-e1b93e2c8286"/>
+				<text><![CDATA[tecconexion_Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="483" y="19" width="69" height="15" uuid="0e9233b8-d86d-4a8f-98e4-25b7d9d66527"/>
+				<text><![CDATA[tipoequipo_Descripcion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="160c3c3e-53c4-499f-9705-57303b72a949"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="69" height="15" uuid="3c7399ec-dad7-44b0-97fb-7a3739a78d79"/>
+				<textFieldExpression><![CDATA[$F{rentadevolucion_No_Prestamo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="69" y="0" width="69" height="15" uuid="470547d6-0785-47d3-91d9-c938ad9b6de0"/>
+				<textFieldExpression><![CDATA[$F{rentadevolucion_FechaPrestamo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="138" y="0" width="69" height="15" uuid="80c6e012-062a-44e7-bcc7-e68915d83b6a"/>
+				<textFieldExpression><![CDATA[$F{rentadevolucion_Comentario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="207" y="0" width="69" height="15" uuid="f566c050-50d3-4356-9d5c-76ddb9b13137"/>
+				<textFieldExpression><![CDATA[$F{marcas_Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="276" y="0" width="69" height="15" uuid="4751ec38-e31b-430c-9b5f-a5c4c0aca160"/>
+				<textFieldExpression><![CDATA[$F{modelos_Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="345" y="0" width="69" height="15" uuid="5947dabe-e70e-4f4c-b1f6-24f42a6420f3"/>
+				<textFieldExpression><![CDATA[$F{equipo_Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="414" y="0" width="69" height="15" uuid="c1c39f65-b793-40b9-a66f-e263c5c987fa"/>
+				<textFieldExpression><![CDATA[$F{tecconexion_Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="483" y="0" width="69" height="15" uuid="30735492-8f44-4b04-908a-79b034ac74bd"/>
+				<textFieldExpression><![CDATA[$F{tipoequipo_Descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="8ff9e10b-e58d-4d45-b2e2-1d42b41d489a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="01dc56b3-0300-4d86-bdd4-bca897713e84"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="62d02f93-5c80-4550-8558-2ef9baece017"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="28bc0476-2890-4bd1-8f98-d56cbce47553"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

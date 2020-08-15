@@ -134,13 +134,16 @@ public class Equipo implements Serializable {
     }
 
     public String getRentado() {
-        return rentado;
+        if (rentado == "N") {
+            return "Sin Rentar";
+        } else {
+            return "Rentado";
+        }
     }
 
     public void setRentado(String rentado) {
         this.rentado = rentado;
     }
-
 
     @XmlTransient
     public Collection<Rentadevolucion> getRentadevolucionCollection() {
@@ -199,5 +202,5 @@ public class Equipo implements Serializable {
     public String toString() {
         return "com.jd.entities.Equipo[ idEquipo=" + idEquipo + " ]";
     }
-    
+
 }

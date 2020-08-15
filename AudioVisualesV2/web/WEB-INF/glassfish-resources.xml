@@ -6,7 +6,7 @@
         <property name="portNumber" value="3306"/>
         <property name="databaseName" value="audiovisualesdb"/>
         <property name="User" value="root"/>
-        <property name="Password" value="admin123"/>
+        <property name="Password" value="Admin12345"/>
         <property name="URL" value="jdbc:mysql://localhost:3306/audiovisualesdb?zeroDateTimeBehavior=convertToNull"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>

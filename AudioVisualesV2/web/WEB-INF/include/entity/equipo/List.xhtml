@@ -89,9 +89,16 @@
                     <f:facet name="header">
                         <h:outputText value="Rentado"/>
                     </f:facet>
-                    <h:outputText value="#{item.rentado=='N' ? "Sin Rentar" : "Rentado"}" />
+                    <h:outputText value="#{item.rentado}"/>
                 </p:column>
 
+
+                <p:column sortBy="#{item.idModelo.idMarca.descripcion}" filterBy="#{item.idModelo.idMarca.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="Marca"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idModelo.idMarca.descripcion}"/>
+                </p:column>
 
                 <p:column sortBy="#{item.idModelo.descripcion}" filterBy="#{item.idModelo.descripcion}">
                     <f:facet name="header">
