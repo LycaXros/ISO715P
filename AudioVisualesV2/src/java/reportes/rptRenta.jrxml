@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56f2c08d-0e3f-4e72-95c0-bac4fb6f5501">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -56,19 +59,15 @@ FROM
 	</background>
 	<title>
 		<band height="70" splitType="Stretch">
-			<image>
-				<reportElement x="275" y="0" width="300" height="64" uuid="d2f2d29c-2187-4375-bc06-edc09161e694"/>
-				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="551e2087-2b67-479a-a33e-f896744b371e"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Leaf Green Title]]></text>
+				<text><![CDATA[Reporte Rentas]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="47949197-0fcc-47ec-8f73-82ec23abc420"/>
-				<text><![CDATA[Leaf Green SubTitle]]></text>
-			</staticText>
+			<image>
+				<reportElement x="465" y="0" width="87" height="70" uuid="12c578c7-85e5-4af3-a792-fe5d6ee0af30"/>
+				<imageExpression><![CDATA["C:\\Users\\Jesus Dicent\\Pictures\\logoUnapecApp.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -84,40 +83,40 @@ FROM
 			</line>
 			<staticText>
 				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="aa72ce85-af8c-44c3-aaf0-e91e3b4e9db1"/>
-				<text><![CDATA[rentadevolucion_No_Prestamo]]></text>
+				<text><![CDATA[N° Prestamo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="69" y="19" width="69" height="15" uuid="bc1c4af9-5650-4bac-951e-f929f65ff37f"/>
-				<text><![CDATA[rentadevolucion_FechaPrestamo]]></text>
+				<reportElement style="Column header" x="69" y="0" width="69" height="34" uuid="bc1c4af9-5650-4bac-951e-f929f65ff37f"/>
+				<text><![CDATA[Fecha Prestamo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="138" y="19" width="69" height="15" uuid="4b89f4c4-b8f1-4d6e-b6bc-b1c80bce5db0"/>
-				<text><![CDATA[rentadevolucion_Comentario]]></text>
+				<reportElement style="Column header" x="138" y="0" width="69" height="34" uuid="4b89f4c4-b8f1-4d6e-b6bc-b1c80bce5db0"/>
+				<text><![CDATA[Comentario]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="207" y="19" width="69" height="15" uuid="987b9574-cba4-4654-9f5d-d633e6a97315"/>
-				<text><![CDATA[marcas_Descripcion]]></text>
+				<text><![CDATA[Marca]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="276" y="19" width="69" height="15" uuid="4308a16b-1792-4e1b-80ca-f1c82bc671db"/>
-				<text><![CDATA[modelos_Descripcion]]></text>
+				<text><![CDATA[Modelo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="345" y="19" width="69" height="15" uuid="f0cc18ba-6f90-42c1-a0f1-1276b5d0a768"/>
-				<text><![CDATA[equipo_Descripcion]]></text>
+				<reportElement style="Column header" x="345" y="0" width="69" height="34" uuid="f0cc18ba-6f90-42c1-a0f1-1276b5d0a768"/>
+				<text><![CDATA[Equipo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="414" y="19" width="69" height="15" uuid="c38a3c80-a792-4720-8797-e1b93e2c8286"/>
-				<text><![CDATA[tecconexion_Descripcion]]></text>
+				<reportElement style="Column header" x="414" y="0" width="69" height="34" uuid="c38a3c80-a792-4720-8797-e1b93e2c8286"/>
+				<text><![CDATA[Tipo Conexion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="483" y="19" width="69" height="15" uuid="0e9233b8-d86d-4a8f-98e4-25b7d9d66527"/>
-				<text><![CDATA[tipoequipo_Descripcion]]></text>
+				<reportElement style="Column header" x="483" y="0" width="69" height="34" uuid="0e9233b8-d86d-4a8f-98e4-25b7d9d66527"/>
+				<text><![CDATA[Tipo Equipo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="16" splitType="Stretch">
+		<band height="37" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="160c3c3e-53c4-499f-9705-57303b72a949"/>
 				<graphicElement>
@@ -128,11 +127,11 @@ FROM
 				<reportElement style="Detail" x="0" y="0" width="69" height="15" uuid="3c7399ec-dad7-44b0-97fb-7a3739a78d79"/>
 				<textFieldExpression><![CDATA[$F{rentadevolucion_No_Prestamo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd-MMM-yy">
 				<reportElement style="Detail" x="69" y="0" width="69" height="15" uuid="470547d6-0785-47d3-91d9-c938ad9b6de0"/>
 				<textFieldExpression><![CDATA[$F{rentadevolucion_FechaPrestamo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd-MMM-yy">
 				<reportElement style="Detail" x="138" y="0" width="69" height="15" uuid="80c6e012-062a-44e7-bcc7-e68915d83b6a"/>
 				<textFieldExpression><![CDATA[$F{rentadevolucion_Comentario}]]></textFieldExpression>
 			</textField>

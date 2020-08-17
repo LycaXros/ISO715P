@@ -3,6 +3,12 @@ package com.jd.controller;
 import com.jd.entities.Rentadevolucion;
 import com.jd.facade.RentadevolucionFacade;
 import com.jd.controller.util.MobilePageController;
+import com.jd.entities.Equipo;
+import com.jd.facade.EquipoFacade;
+import java.util.Collection;
+import java.util.Date;
+import java.util.ResourceBundle;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -11,6 +17,11 @@ import javax.inject.Inject;
 @Named(value = "rentadevolucionController")
 @ViewScoped
 public class RentadevolucionController extends AbstractController<Rentadevolucion> {
+
+    @EJB
+    private EquipoFacade equipoFacade;
+
+    private Collection<Rentadevolucion> itemsRentados;
 
     @Inject
     private EmpleadoController idEmpleadoController;
@@ -74,4 +85,30 @@ public class RentadevolucionController extends AbstractController<Rentadevolucio
         }
     }
 
+    public Collection<Rentadevolucion> getItemsRentados() {
+        if (itemsRentados == null) {
+            RentadevolucionFacade ef = (RentadevolucionFacade) this.getFacade();
+            itemsRentados = ef.getRentados();
+        }
+        return itemsRentados;
+    }
+    
+    public void beforeSaveNew(ActionEvent e){
+        this.getSelected().setFechaPrestamo(new Date());
+        this.saveNew(e);
+    }
+    
+    public void retornar(ActionEvent event) {
+        
+        Equipo equipo = this.getSelected().getIdEquipo();
+        equipo.setRentado("N");
+        
+        this.getSelected().setFechaDevolucion(new Date());
+        String comentario = this.getSelected().getComentario() + ". Devuelto!!!!!";
+        this.getSelected().setComentario(comentario);
+        this.getSelected().setEstado(false);
+        
+        equipoFacade.edit(equipo);
+        this.getFacade().edit(this.getSelected());
+    }
 }

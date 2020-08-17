@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `credencial` (
   CONSTRAINT `RolCredencial` FOREIGN KEY (`IdRol`) REFERENCES `rol` (`idRol`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.credencial: ~1 rows (approximately)
+-- Dumping data for table audiovisualesdb.credencial: ~0 rows (approximately)
 /*!40000 ALTER TABLE `credencial` DISABLE KEYS */;
 INSERT INTO `credencial` (`IdEmpleado`, `IdRol`, `Username`, `Password`, `Estado`) VALUES
 	(1, 1, 'Admin', 'Admin123', 1);
@@ -51,12 +51,13 @@ CREATE TABLE IF NOT EXISTS `empleado` (
   PRIMARY KEY (`idEmpleado`),
   UNIQUE KEY `Cedula_UNIQUE` (`Cedula`),
   KEY `NombreEmpleado_Index` (`Nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.empleado: ~1 rows (approximately)
+-- Dumping data for table audiovisualesdb.empleado: ~2 rows (approximately)
 /*!40000 ALTER TABLE `empleado` DISABLE KEYS */;
 INSERT INTO `empleado` (`idEmpleado`, `Nombre`, `Cedula`, `Tanda_Labor`, `FechaIngreso`, `Estado`) VALUES
-	(1, 'Jesus Francisco Dicent Aguero', '402-1457460-6', 'Matutina', '2020-07-11', 1);
+	(1, 'Jesus Francisco Dicent Aguero', '402-1457460-6', 'Matutina', '2020-07-11', 1),
+	(2, 'Juan Pablo Valdez', '402-2793508-3', 'Nocturna', '2020-05-11', 1);
 /*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.equipo
@@ -70,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `equipo` (
   `idModelo` int(11) DEFAULT NULL,
   `idTecConexion` int(11) DEFAULT NULL,
   `Estado` tinyint(1) NOT NULL DEFAULT 0,
+  `Rentado` varchar(1) COLLATE utf8_spanish2_ci NOT NULL DEFAULT 'N',
   PRIMARY KEY (`idEquipo`),
   UNIQUE KEY `idEquipo_UNIQUE` (`idEquipo`),
   UNIQUE KEY `ServiceTag_UNIQUE` (`ServiceTag`),
@@ -79,10 +81,13 @@ CREATE TABLE IF NOT EXISTS `equipo` (
   CONSTRAINT `EquipoToModelo` FOREIGN KEY (`idModelo`) REFERENCES `modelos` (`Id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `EquipoToTecConexion` FOREIGN KEY (`idTecConexion`) REFERENCES `tecconexion` (`Id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `EquipoToTipo` FOREIGN KEY (`idTipoEquipo`) REFERENCES `tipoequipo` (`Id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.equipo: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.equipo: ~2 rows (approximately)
 /*!40000 ALTER TABLE `equipo` DISABLE KEYS */;
+INSERT INTO `equipo` (`idEquipo`, `Descripcion`, `No_Serial`, `ServiceTag`, `idTipoEquipo`, `idModelo`, `idTecConexion`, `Estado`, `Rentado`) VALUES
+	(1, 'Equipo 1', '0000000', '545454', 1, 1, 1, 1, 'N'),
+	(2, 'Equipo 3', 'asdads', 'qwe212', 2, 2, 1, 1, 'N');
 /*!40000 ALTER TABLE `equipo` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.marcas
@@ -93,10 +98,14 @@ CREATE TABLE IF NOT EXISTS `marcas` (
   `Estado` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`Id`),
   KEY `MarcaDescripcion` (`Descripcion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.marcas: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.marcas: ~3 rows (approximately)
 /*!40000 ALTER TABLE `marcas` DISABLE KEYS */;
+INSERT INTO `marcas` (`Id`, `Descripcion`, `Estado`) VALUES
+	(1, 'HP', 1),
+	(2, 'Dell', 1),
+	(3, 'Toshiba', 1);
 /*!40000 ALTER TABLE `marcas` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.modelos
@@ -110,10 +119,17 @@ CREATE TABLE IF NOT EXISTS `modelos` (
   KEY `ModeloDescripcion` (`Descripcion`),
   KEY `ModeloToMarca_idx` (`IdMarca`),
   CONSTRAINT `ModeloToMarca` FOREIGN KEY (`IdMarca`) REFERENCES `marcas` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.modelos: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.modelos: ~6 rows (approximately)
 /*!40000 ALTER TABLE `modelos` DISABLE KEYS */;
+INSERT INTO `modelos` (`Id`, `IdMarca`, `Descripcion`, `Estado`) VALUES
+	(1, 1, 'Modelo 1', 1),
+	(2, 1, 'Modelo 2', 1),
+	(3, 2, 'Modelo 3', 1),
+	(4, 2, 'Modelo 4', 1),
+	(5, 3, 'Modelo 5', 1),
+	(6, 3, 'Modelo 6', 1);
 /*!40000 ALTER TABLE `modelos` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.rentadevolucion
@@ -138,10 +154,13 @@ CREATE TABLE IF NOT EXISTS `rentadevolucion` (
   CONSTRAINT `RentaEmpleado` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `RentaEquipo` FOREIGN KEY (`idEquipo`) REFERENCES `equipo` (`idEquipo`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `RentaUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.rentadevolucion: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.rentadevolucion: ~2 rows (approximately)
 /*!40000 ALTER TABLE `rentadevolucion` DISABLE KEYS */;
+INSERT INTO `rentadevolucion` (`No_Prestamo`, `idEmpleado`, `idEquipo`, `idUsuario`, `FechaPrestamo`, `FechaDevolucion`, `Comentario`, `Estado`) VALUES
+	(1, 1, 1, 1, '2020-08-01', '2020-08-16', 'DD. Devuelto!!!!!. ./n Devuelto!!!!!', 0),
+	(2, 1, 1, 1, '2020-08-16', '2020-08-16', 'Preuba Numero 2 de Renta. Devuelto!!!!!', 0);
 /*!40000 ALTER TABLE `rentadevolucion` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.rol
@@ -171,10 +190,17 @@ CREATE TABLE IF NOT EXISTS `tecconexion` (
   `Estado` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`Id`),
   KEY `TecnologiaConexionDescripcion` (`Descripcion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.tecconexion: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.tecconexion: ~6 rows (approximately)
 /*!40000 ALTER TABLE `tecconexion` DISABLE KEYS */;
+INSERT INTO `tecconexion` (`Id`, `Descripcion`, `Estado`) VALUES
+	(1, 'USB', 1),
+	(2, 'PS2', 1),
+	(3, 'Serial', 1),
+	(4, 'Paralelo', 1),
+	(5, 'Infrarrojo', 1),
+	(6, 'Bluetooth', 1);
 /*!40000 ALTER TABLE `tecconexion` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.tipoequipo
@@ -185,10 +211,14 @@ CREATE TABLE IF NOT EXISTS `tipoequipo` (
   `Estado` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`Id`),
   KEY `TipoEquipoDescripcion` (`Descripcion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.tipoequipo: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.tipoequipo: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tipoequipo` DISABLE KEYS */;
+INSERT INTO `tipoequipo` (`Id`, `Descripcion`, `Estado`) VALUES
+	(1, 'Tipo 1', 1),
+	(2, 'Tipo 2', 1),
+	(3, 'Tipo 3 ', 1);
 /*!40000 ALTER TABLE `tipoequipo` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.tipopersona
@@ -199,10 +229,13 @@ CREATE TABLE IF NOT EXISTS `tipopersona` (
   `Estado` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`idTipoPesona`),
   UNIQUE KEY `Descripcion_UNIQUE` (`Descripcion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.tipopersona: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.tipopersona: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tipopersona` DISABLE KEYS */;
+INSERT INTO `tipopersona` (`idTipoPesona`, `Descripcion`, `Estado`) VALUES
+	(1, 'Fisica', 1),
+	(2, 'Juridica', 1);
 /*!40000 ALTER TABLE `tipopersona` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.tipousuario
@@ -214,10 +247,14 @@ CREATE TABLE IF NOT EXISTS `tipousuario` (
   PRIMARY KEY (`idTipoUsuario`),
   UNIQUE KEY `Descripcion_UNIQUE` (`Descripcion`),
   UNIQUE KEY `idTipoUsuario_UNIQUE` (`idTipoUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.tipousuario: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.tipousuario: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tipousuario` DISABLE KEYS */;
+INSERT INTO `tipousuario` (`idTipoUsuario`, `Descripcion`, `Estado`) VALUES
+	(1, 'Profesor', 1),
+	(2, 'Estudiante', 1),
+	(3, 'Empleado', 1);
 /*!40000 ALTER TABLE `tipousuario` ENABLE KEYS */;
 
 -- Dumping structure for table audiovisualesdb.usuario
@@ -238,11 +275,26 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   KEY `UsuarioToTipoPersona_idx` (`idTipoPersona`),
   CONSTRAINT `UsuarioToTipoPersona` FOREIGN KEY (`idTipoPersona`) REFERENCES `tipopersona` (`idTipoPesona`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `UsuarioToTipoUsuario` FOREIGN KEY (`idTipoUsuario`) REFERENCES `tipousuario` (`idTipoUsuario`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Dumping data for table audiovisualesdb.usuario: ~0 rows (approximately)
+-- Dumping data for table audiovisualesdb.usuario: ~1 rows (approximately)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` (`idusuario`, `Nombre`, `Cedula`, `No_Carnet`, `idTipoUsuario`, `idTipoPersona`, `Estado`) VALUES
+	(1, 'Jesus ', '402-1457460-6', '00000', 1, 1, 1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+
+-- Dumping structure for trigger audiovisualesdb.rentadevolucion_AFTER_INSERT
+DROP TRIGGER IF EXISTS `rentadevolucion_AFTER_INSERT`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `audiovisualesdb`.`rentadevolucion_AFTER_INSERT` AFTER INSERT ON `rentadevolucion` FOR EACH ROW
+BEGIN
+ update equipo
+ set Rentado = "S"
+ where idEquipo = new.idEquipo;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

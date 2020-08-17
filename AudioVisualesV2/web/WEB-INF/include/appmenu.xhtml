@@ -16,7 +16,11 @@
                     <p:menuitem value="#{myBundle.EquipoHeading}..." outcome="/app/equipo/index" />
                     <p:menuitem value="#{myBundle.MarcasHeading}..." outcome="/app/marcas/index" />
                     <p:menuitem value="#{myBundle.ModelosHeading}..." outcome="/app/modelos/index" />
-                    <p:menuitem value="#{myBundle.RentadevolucionHeading}..." outcome="/app/rentadevolucion/index" />
+                    <p:submenu label="Renta Devolucion">
+                        <p:menuitem value="#{myBundle.RentadevolucionHeading}..." outcome="/app/rentadevolucion/index" />
+                        <p:menuitem value="Procedso Devolucion" outcome="/app/rentadevolucion/devolver" />
+
+                    </p:submenu>
                     <p:menuitem value="#{myBundle.RolHeading}..." outcome="/app/rol/index" />
                     <p:menuitem value="#{myBundle.TecconexionHeading}..." outcome="/app/tecconexion/index" />
                     <p:menuitem value="#{myBundle.TipoequipoHeading}..." outcome="/app/tipoequipo/index" />

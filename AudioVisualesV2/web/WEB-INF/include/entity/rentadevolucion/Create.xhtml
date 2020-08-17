@@ -15,14 +15,11 @@
                 <h:panelGroup id="display" rendered="#{rentadevolucionController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
-                        <p:outputLabel value="#{myBundle.CreateRentadevolucionLabel_fechaPrestamo}" for="fechaPrestamo" />
-                        <p:calendar id="fechaPrestamo" pattern="MM/dd/yyyy" value="#{rentadevolucionController.selected.fechaPrestamo}" title="#{myBundle.CreateRentadevolucionTitle_fechaPrestamo}" required="true" requiredMessage="#{myBundle.CreateRentadevolucionRequiredMessage_fechaPrestamo}" showOn="button"/>
-
-                        <p:outputLabel value="#{myBundle.CreateRentadevolucionLabel_fechaDevolucion}" for="fechaDevolucion" />
-                        <p:calendar id="fechaDevolucion" pattern="MM/dd/yyyy" value="#{rentadevolucionController.selected.fechaDevolucion}" title="#{myBundle.CreateRentadevolucionTitle_fechaDevolucion}"  showOn="button"/>
 
                         <p:outputLabel value="#{myBundle.CreateRentadevolucionLabel_comentario}" for="comentario" />
-                        <p:inputText id="comentario" value="#{rentadevolucionController.selected.comentario}" title="#{myBundle.CreateRentadevolucionTitle_comentario}" required="true" requiredMessage="#{myBundle.CreateRentadevolucionRequiredMessage_comentario}" size="240" maxlength="240"/>
+                        <p:inputText id="comentario" value="#{rentadevolucionController.selected.comentario}" 
+                                     title="#{myBundle.CreateRentadevolucionTitle_comentario}" required="true" requiredMessage="#{myBundle.CreateRentadevolucionRequiredMessage_comentario}"
+                                     size="140" style="height: 100px"  maxlength="240"/>
 
                         <p:outputLabel value="#{myBundle.CreateRentadevolucionLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{rentadevolucionController.selected.estado}" required="true" requiredMessage="#{myBundle.CreateRentadevolucionRequiredMessage_estado}"/>
@@ -33,7 +30,7 @@
                             <f:selectItems value="#{empleadoController.items}"
                                            var="idEmpleadoItem"
                                            itemValue="#{idEmpleadoItem}"
-                                           itemLabel="#{idEmpleadoItem.idEmpleado.toString()}"
+                                           itemLabel="#{idEmpleadoItem.nombre.toString()}"
                                            />
 
                         </p:selectOneMenu>
@@ -55,12 +52,12 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idusuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre.toString()}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{rentadevolucionController.saveNew}" value="#{myBundle.Save}" update="display,:RentadevolucionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RentadevolucionCreateDialog'));">
+                    <p:commandButton actionListener="#{rentadevolucionController.beforeSaveNew}" value="#{myBundle.Save}" update="display,:RentadevolucionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RentadevolucionCreateDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
                     </p:commandButton>
 

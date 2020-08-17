@@ -36,7 +36,7 @@
                             <f:selectItems value="#{empleadoController.items}"
                                            var="idEmpleadoItem"
                                            itemValue="#{idEmpleadoItem}"
-                                           itemLabel="#{idEmpleadoItem.idEmpleado.toString()}"
+                                           itemLabel="#{idEmpleadoItem.nombre.toString()}"
                                            />
 
                         </p:selectOneMenu>
@@ -58,7 +58,7 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idusuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre.toString()}"
                                            />
 
                         </p:selectOneMenu>

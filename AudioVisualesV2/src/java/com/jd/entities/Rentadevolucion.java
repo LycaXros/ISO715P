@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Rentadevolucion.betweenFechaPrestamo", query = "SELECT r FROM Rentadevolucion r WHERE r.fechaPrestamo between :fechaIn and :fechaFin")
     , @NamedQuery(name = "Rentadevolucion.findByFechaDevolucion", query = "SELECT r FROM Rentadevolucion r WHERE r.fechaDevolucion = :fechaDevolucion")
     , @NamedQuery(name = "Rentadevolucion.findByComentario", query = "SELECT r FROM Rentadevolucion r WHERE r.comentario = :comentario")
-    , @NamedQuery(name = "Rentadevolucion.findByEstado", query = "SELECT r FROM Rentadevolucion r WHERE r.estado = :estado")})
+    , @NamedQuery(name = "Rentadevolucion.findByEstado", query = "SELECT r FROM Rentadevolucion r WHERE r.estado = :estado")
+    , @NamedQuery(name = "Rentadevolucion.findRentados", query = "SELECT r FROM Rentadevolucion r WHERE r.idEquipo.rentado = 'S' AND r.estado = 1")})
 public class Rentadevolucion implements Serializable {
 
     private static final long serialVersionUID = 1L;

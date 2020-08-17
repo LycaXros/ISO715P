@@ -17,6 +17,7 @@ import com.jd.entities.Empleado;
 import com.jd.entities.Equipo;
 import com.jd.entities.Usuario;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Query;
@@ -89,4 +90,19 @@ public class RentadevolucionFacade extends AbstractFacade<Rentadevolucion> {
         return  (List<Rentadevolucion>) query.getResultList();
     }
 
+    public Collection<Rentadevolucion> getRentados() {
+        List<Rentadevolucion> rentas = new ArrayList<Rentadevolucion>();
+         try {
+            //CriteriaBuilder cb = em.getCriteriaBuilder();
+            Query q = getEntityManager().createNamedQuery("Rentadevolucion.findRentados");
+            //q.setParameter("renta", "S");
+            rentas =  q.getResultList();
+
+        } catch (Exception e) {
+            throw e;
+        }
+         return rentas;
+    }
+
 }
+    
