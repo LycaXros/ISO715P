@@ -15,16 +15,71 @@
             <div class="p-col-2">
 
                 <p:outputLabel for="fechaInicio" value="Fecha Inicio" />
-                <p:calendar id="fechaInicio" value="#{reporteVentaBean.model.fechaInicio}"  pattern="yyyy-MM-dd"/>
-               </div>
+                <p:calendar id="fechaInicio" value="#{reporteVentaBean.model.fechaInicio}"   required="true" pattern="yyyy-MM-dd"/>
+            </div>
             <div class="p-col-2">
                 <p:outputLabel for="fechaFin" value="Fecha Fin" />
-                <p:calendar id="fechaFin" value="#{reporteVentaBean.model.fechaFin}" pattern="yyyy-MM-dd" />                
+                <p:calendar id="fechaFin" value="#{reporteVentaBean.model.fechaFin}"  required="true" pattern="yyyy-MM-dd" />                
             </div>
             <div class="p-col-1">
-                <p:commandButton id="viewButton"  icon="ui-icon-search" value="#{myBundle.View}"  actionListener="#{reporteVentaBean.BuscarDatos}" />
+                <p:commandButton id="viewButton"  icon="ui-icon-search" value="#{myBundle.View}" update=":growl,datalist"   actionListener="#{reporteVentaBean.BuscarDatos}" />
             </div>
         </div>
+        <p:dataTable id="datalist"
+                     value="#{reporteVentaBean.items}"
+                     lazy="false"
+                     rowKey="#{item.noPrestamo}"
+                     var="item"
+                     paginator="true"
+                     rows="10"
+                     rowsPerPageTemplate="10,20,30,40,50">
+
+
+            <p:column sortBy="#{item.noPrestamo}" >
+                <f:facet name="header">
+                    <h:outputText value="Numero Prestamo"/>
+                </f:facet>
+                <h:outputText value="#{item.noPrestamo}"/>
+            </p:column>
+
+            <p:column sortBy="#{item.fechaPrestamo}" >
+                <f:facet name="header">
+                    <h:outputText value="Fecha Prestamo"/>
+                </f:facet>
+                <h:outputText value="#{item.fechaPrestamo}">
+                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                </h:outputText>
+            </p:column>
+            <p:column sortBy="#{item.fechaDevolucion}" >
+                <f:facet name="header">
+                    <h:outputText value="Fecha Devolucion"/>
+                </f:facet>
+                <h:outputText value="#{item.fechaDevolucion}">
+                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                </h:outputText>
+            </p:column>
+
+            <p:column sortBy="#{item.idUsuario.nombre}" >
+                <f:facet name="header">
+                    <h:outputText value="Usuario"/>
+                </f:facet>
+                <h:outputText value="#{item.idUsuario.nombre}"/>
+            </p:column>
+            <p:column sortBy="#{item.idEquipo.descripcion}" >
+                <f:facet name="header">
+                    <h:outputText value="Equipo"/>
+                </f:facet>
+                <h:outputText value="#{item.idEquipo.descripcion}"/>
+            </p:column>
+            <p:column sortBy="#{item.idEquipo.rentado}" >
+                <f:facet name="header">
+                    <h:outputText value="Estado Renta"/>
+                </f:facet>
+                <h:outputText value="#{item.idEquipo.rentado}"/>
+            </p:column>
+
+
+        </p:dataTable>
     </h:form>
 
 </ui:composition>

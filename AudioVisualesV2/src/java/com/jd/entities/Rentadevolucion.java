@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Rentadevolucion.findAll", query = "SELECT r FROM Rentadevolucion r")
     , @NamedQuery(name = "Rentadevolucion.findByNoPrestamo", query = "SELECT r FROM Rentadevolucion r WHERE r.noPrestamo = :noPrestamo")
     , @NamedQuery(name = "Rentadevolucion.findByFechaPrestamo", query = "SELECT r FROM Rentadevolucion r WHERE r.fechaPrestamo = :fechaPrestamo")
+    , @NamedQuery(name = "Rentadevolucion.betweenFechaPrestamo", query = "SELECT r FROM Rentadevolucion r WHERE r.fechaPrestamo between :fechaIn and :fechaFin")
     , @NamedQuery(name = "Rentadevolucion.findByFechaDevolucion", query = "SELECT r FROM Rentadevolucion r WHERE r.fechaDevolucion = :fechaDevolucion")
     , @NamedQuery(name = "Rentadevolucion.findByComentario", query = "SELECT r FROM Rentadevolucion r WHERE r.comentario = :comentario")
     , @NamedQuery(name = "Rentadevolucion.findByEstado", query = "SELECT r FROM Rentadevolucion r WHERE r.estado = :estado")})

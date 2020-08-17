@@ -28,7 +28,7 @@
                         <h:outputText value="#{equipoController.selected.serviceTag}" title="#{myBundle.ViewEquipoTitle_serviceTag}"/>
 
                         <h:outputText value="#{myBundle.ViewEquipoLabel_estado}"/>
-                        <p:selectBooleanCheckbox id="estado" value="#{equipoController.selected.estado}" title="#{myBundle.EditEquipoTitle_estado}" required="true" requiredMessage="#{myBundle.EditEquipoRequiredMessage_estado}"/>
+                        <p:selectBooleanCheckbox id="estado" value="#{equipoController.selected.estado}"  required="true" requiredMessage="#{myBundle.EditEquipoRequiredMessage_estado}"/>
 
                         <h:outputText value="#{myBundle.ViewEquipoLabel_idModelo}"/>
                         <h:outputText value="#{equipoController.selected.idModelo.descripcion}"/>
@@ -38,6 +38,9 @@
 
                         <h:outputText value="#{myBundle.ViewEquipoLabel_idTipoEquipo}"/>
                         <h:outputText value="#{equipoController.selected.idTipoEquipo.descripcion}"/>
+                        
+                        <h:outputText value="Estado Renta"/>
+                        <h:outputText value="#{equipoController.selected.rentado}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="PF('EquipoViewDialog').hide()"/>
                 </h:panelGroup>

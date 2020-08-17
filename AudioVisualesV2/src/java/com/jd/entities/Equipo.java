@@ -64,7 +64,7 @@ public class Equipo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
-    private String rentado;
+    private String rentado = "N";
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
     private Collection<Rentadevolucion> rentadevolucionCollection;
     @JoinColumn(name = "idModelo", referencedColumnName = "Id")
@@ -134,10 +134,14 @@ public class Equipo implements Serializable {
     }
 
     public String getRentado() {
-        if (rentado == "N") {
-            return "Sin Rentar";
-        } else {
-            return "Rentado";
+        switch (this.rentado) {
+            case "N":
+                return "Sin Rentar";
+            case "S":
+                return "Rentado";
+            default:
+                return this.rentado;
+
         }
     }
 

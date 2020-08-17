@@ -89,30 +89,32 @@
                 </p:column>
 
 
-                <p:column sortBy="#{item.idEmpleado.idEmpleado}" filterBy="#{item.idEmpleado.idEmpleado}">
+                <p:column sortBy="#{item.idEmpleado.nombre}" filterBy="#{item.idEmpleado.nombre}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListRentadevolucionTitle_idEmpleado}"/>
+                        <h:outputText value="Nombre Empleado"/>
                     </f:facet>
-                    <h:outputText value="#{item.idEmpleado.idEmpleado}"/>
+                    <h:outputText value="#{item.idEmpleado.nombre}"/>
                 </p:column>
 
-                <ui:remove>
-                    <p:column sortBy="#{item.idEquipo.descripcion}" filterBy="#{item.idEquipo.descripcion}">
-                        <f:facet name="header">
-                            <h:outputText value="#{myBundle.ListRentadevolucionTitle_idEquipo}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idEquipo.descripcion}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idUsuario.idusuario}" filterBy="#{item.idUsuario.idusuario}">
-                        <f:facet name="header">
-                            <h:outputText value="#{myBundle.ListRentadevolucionTitle_idUsuario}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idUsuario.idusuario}"/>
-                    </p:column>
-                </ui:remove>
+                <p:column sortBy="#{item.idEquipo.descripcion}" filterBy="#{item.idEquipo.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="Equipo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEquipo.descripcion}"/>
+                </p:column>
+                <p:column sortBy="#{item.idUsuario.idusuario}" filterBy="#{item.idUsuario.idusuario}">
+                    <f:facet name="header">
+                        <h:outputText value="Usuario"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idUsuario.idusuario}"/>
+                </p:column>
 
+                <p:column sortBy="#{item.idEquipo.descripcion}" filterBy="#{item.idEquipo.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="Estado Renta"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEquipo.rentado}"/>
+                </p:column>
             </p:dataTable>
 
             <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{rentadevolucionController.prepareCreate}" update=":RentadevolucionCreateForm" oncomplete="PF('RentadevolucionCreateDialog').show()"/>

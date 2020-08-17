@@ -13,8 +13,7 @@ import java.util.Objects;
  *
  * @author Jesus Dicent
  */
-public class ReporteVentaModel implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class ReporteVentaModel{
     
     private Date fechaInicio;
     private Date fechaFin;
@@ -61,43 +60,6 @@ public class ReporteVentaModel implements Serializable{
 
     public void setMarcaId(int marcaId) {
         this.marcaId = marcaId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.fechaInicio);
-        hash = 61 * hash + Objects.hashCode(this.fechaFin);
-        hash = 61 * hash + this.tipoEquipoId;
-        hash = 61 * hash + this.marcaId;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ReporteVentaModel other = (ReporteVentaModel) obj;
-        if (this.tipoEquipoId != other.tipoEquipoId) {
-            return false;
-        }
-        if (this.marcaId != other.marcaId) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaInicio, other.fechaInicio)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaFin, other.fechaFin)) {
-            return false;
-        }
-        return true;
     }
      
 }

@@ -102,27 +102,23 @@
 
                 <p:column sortBy="#{item.idModelo.descripcion}" filterBy="#{item.idModelo.descripcion}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListEquipoTitle_idModelo}"/>
+                        <h:outputText value="Modelo"/>
                     </f:facet>
                     <h:outputText value="#{item.idModelo.descripcion}"/>
                 </p:column>
 
-                <ui:remove>
-                    <p:column sortBy="#{item.idTecConexion.descripcion}" filterBy="#{item.idTecConexion.descripcion}">
-                        <f:facet name="header">
-                            <h:outputText value="#{myBundle.ListEquipoTitle_idTecConexion}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idTecConexion.descripcion}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idTipoEquipo.descripcion}" filterBy="#{item.idTipoEquipo.descripcion}">
-                        <f:facet name="header">
-                            <h:outputText value="#{myBundle.ListEquipoTitle_idTipoEquipo}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idTipoEquipo.descripcion}"/>
-                    </p:column>
-                </ui:remove>
+                <p:column sortBy="#{item.idTecConexion.descripcion}" filterBy="#{item.idTecConexion.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="Tecnologia Conexion"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTecConexion.descripcion}"/>
+                </p:column>
+                <p:column sortBy="#{item.idTipoEquipo.descripcion}" filterBy="#{item.idTipoEquipo.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="Tipo Equipo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoEquipo.descripcion}"/>
+                </p:column>
 
             </p:dataTable>
 

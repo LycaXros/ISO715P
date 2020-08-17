@@ -16,6 +16,11 @@ import javax.persistence.criteria.Root;
 import com.jd.entities.Empleado;
 import com.jd.entities.Equipo;
 import com.jd.entities.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.List;
+import javax.persistence.Query;
+import reportes.ReporteVentaModel;
 
 /**
  *
@@ -71,5 +76,17 @@ public class RentadevolucionFacade extends AbstractFacade<Rentadevolucion> {
     public Usuario findIdUsuario(Rentadevolucion entity) {
         return this.getMergedEntity(entity).getIdUsuario();
     }
-    
+
+    public Collection<Rentadevolucion> GetResult(ReporteVentaModel model) {
+        if(model.getFechaInicio() == null || model.getFechaFin() == null) return null;
+        
+       // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Query query = em.createNamedQuery("Rentadevolucion.betweenFechaPrestamo");
+//        query.setParameter("fechaIn", simpleDateFormat.format(model.getFechaInicio()));
+//        query.setParameter("fechaFin", simpleDateFormat.format(model.getFechaFin()));
+        query.setParameter("fechaIn", model.getFechaInicio());
+        query.setParameter("fechaFin", model.getFechaFin());
+        return  (List<Rentadevolucion>) query.getResultList();
+    }
+
 }
