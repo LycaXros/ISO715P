@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpleadoViewDlg" widgetVar="EmpleadoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewEmpleadoTitle}" closeOnEscape="true">
+
+            <h:form id="EmpleadoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{empleadoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewEmpleadoLabel_idEmpleado}"/>
+                        <h:outputText value="#{empleadoController.selected.idEmpleado}" title="#{myBundle.ViewEmpleadoTitle_idEmpleado}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpleadoLabel_nombre}"/>
+                        <h:outputText value="#{empleadoController.selected.nombre}" title="#{myBundle.ViewEmpleadoTitle_nombre}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpleadoLabel_cedula}"/>
+                        <h:outputText value="#{empleadoController.selected.cedula}" title="#{myBundle.ViewEmpleadoTitle_cedula}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpleadoLabel_tandaLabor}"/>
+                        <h:outputText value="#{empleadoController.selected.tandaLabor}" title="#{myBundle.ViewEmpleadoTitle_tandaLabor}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpleadoLabel_fechaIngreso}"/>
+                        <h:outputText value="#{empleadoController.selected.fechaIngreso}" title="#{myBundle.ViewEmpleadoTitle_fechaIngreso}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEmpleadoLabel_estado}"/>
+                        <p:selectBooleanCheckbox id="estado" value="#{empleadoController.selected.estado}" title="#{myBundle.EditEmpleadoTitle_estado}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_estado}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpleadoLabel_credencial}"/>
+                        <h:outputText value="#{empleadoController.selected.credencial.username}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('EmpleadoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

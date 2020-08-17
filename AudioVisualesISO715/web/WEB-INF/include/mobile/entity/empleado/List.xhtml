@@ -69,11 +69,6 @@
                             <h:selectBooleanCheckbox id="estado" value="#{item.estado}" title="#{myBundle.EditEmpleadoTitle_estado}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_estado}" disabled="true"/>
 
 
-
-                            <ui:remove>
-                                ,&nbsp;
-                                <h:outputText value="#{item.credencial.username}"/>
-                            </ui:remove>
                         </p>
                         <f:setPropertyActionListener value="#{item}" target="#{empleadoController.selected}" />
                     </p:commandLink>

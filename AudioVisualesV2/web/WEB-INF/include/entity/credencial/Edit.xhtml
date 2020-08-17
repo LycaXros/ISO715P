@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CredencialEditDlg" widgetVar="CredencialEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCredencialTitle}" closeOnEscape="true">
+
+            <h:form id="CredencialEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{credencialController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCredencialLabel_idEmpleado}" for="idEmpleado" />
+                        <h:outputText id="idEmpleado" value="#{credencialController.selected.idEmpleado}" />
+
+                        <p:outputLabel value="#{myBundle.EditCredencialLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{credencialController.selected.username}" title="#{myBundle.EditCredencialTitle_username}" required="true" requiredMessage="#{myBundle.EditCredencialRequiredMessage_username}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{myBundle.EditCredencialLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{credencialController.selected.password}" title="#{myBundle.EditCredencialTitle_password}" required="true" requiredMessage="#{myBundle.EditCredencialRequiredMessage_password}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{myBundle.EditCredencialLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{credencialController.selected.estado}" required="true" requiredMessage="#{myBundle.EditCredencialRequiredMessage_estado}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCredencialLabel_empleado}" for="empleado" />
+                        <p:selectOneMenu id="empleado" value="#{credencialController.selected.empleado}" required="true" requiredMessage="#{myBundle.EditCredencialRequiredMessage_empleado}" converter="empleadoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{empleadoController.items}"
+                                           var="empleadoItem"
+                                           itemValue="#{empleadoItem}"
+                                           itemLabel="#{empleadoItem.nombre.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditCredencialLabel_idRol}" for="idRol" />
+                        <p:selectOneMenu id="idRol" value="#{credencialController.selected.idRol}" required="true" requiredMessage="#{myBundle.EditCredencialRequiredMessage_idRol}" converter="rolConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{rolController.items}"
+                                           var="idRolItem"
+                                           itemValue="#{idRolItem}"
+                                           itemLabel="#{idRolItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{credencialController.save}" value="#{myBundle.Save}" update="display,:CredencialListForm:datalist,:CredencialListForm:CredencialDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CredencialEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CredencialEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

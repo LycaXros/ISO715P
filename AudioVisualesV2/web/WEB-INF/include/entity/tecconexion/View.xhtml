@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TecconexionViewDlg" widgetVar="TecconexionViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTecconexionTitle}" closeOnEscape="true">
+
+            <h:form id="TecconexionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tecconexionController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTecconexionLabel_id}"/>
+                        <h:outputText value="#{tecconexionController.selected.id}" title="#{myBundle.ViewTecconexionTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewTecconexionLabel_descripcion}"/>
+                        <h:outputText value="#{tecconexionController.selected.descripcion}" title="#{myBundle.ViewTecconexionTitle_descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewTecconexionLabel_estado}"/>
+                        <p:selectBooleanCheckbox id="estado" value="#{tecconexionController.selected.estado}" title="#{myBundle.EditTecconexionTitle_estado}" required="true" requiredMessage="#{myBundle.EditTecconexionRequiredMessage_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TecconexionViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

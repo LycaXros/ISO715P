@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ModelosEditDlg" widgetVar="ModelosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditModelosTitle}" closeOnEscape="true">
+
+            <h:form id="ModelosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{modelosController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditModelosLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{modelosController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditModelosLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{modelosController.selected.descripcion}" title="#{myBundle.EditModelosTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditModelosRequiredMessage_descripcion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.EditModelosLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{modelosController.selected.estado}" required="true" requiredMessage="#{myBundle.EditModelosRequiredMessage_estado}"/>
+
+                        <p:outputLabel value="#{myBundle.EditModelosLabel_idMarca}" for="idMarca" />
+                        <p:selectOneMenu id="idMarca" value="#{modelosController.selected.idMarca}" required="true" requiredMessage="#{myBundle.EditModelosRequiredMessage_idMarca}" converter="marcasConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{marcasController.items}"
+                                           var="idMarcaItem"
+                                           itemValue="#{idMarcaItem}"
+                                           itemLabel="#{idMarcaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{modelosController.save}" value="#{myBundle.Save}" update="display,:ModelosListForm:datalist,:ModelosListForm:ModelosDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ModelosEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ModelosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

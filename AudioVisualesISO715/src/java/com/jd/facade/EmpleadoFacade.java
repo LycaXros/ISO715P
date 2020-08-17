@@ -14,12 +14,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.jd.models.Rentadevolucion;
-import com.jd.models.Credencial;
 import java.util.Collection;
 
 /**
  *
- * @author Jesus Dicent
+ * @author Master
  */
 @Stateless
 public class EmpleadoFacade extends AbstractFacade<Empleado> {
@@ -49,18 +48,6 @@ public class EmpleadoFacade extends AbstractFacade<Empleado> {
         Collection<Rentadevolucion> rentadevolucionCollection = mergedEntity.getRentadevolucionCollection();
         rentadevolucionCollection.size();
         return rentadevolucionCollection;
-    }
-
-    public boolean isCredencialEmpty(Empleado entity) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-        Root<Empleado> empleado = cq.from(Empleado.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(empleado, entity), cb.isNotNull(empleado.get(Empleado_.credencial)));
-        return em.createQuery(cq).getResultList().isEmpty();
-    }
-
-    public Credencial findCredencial(Empleado entity) {
-        return this.getMergedEntity(entity).getCredencial();
     }
     
 }

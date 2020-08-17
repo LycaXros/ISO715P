@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RentadevolucionEditDlg" widgetVar="RentadevolucionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditRentadevolucionTitle}" closeOnEscape="true">
+
+            <h:form id="RentadevolucionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{rentadevolucionController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditRentadevolucionLabel_noPrestamo}" for="noPrestamo" />
+                        <h:outputText id="noPrestamo" value="#{rentadevolucionController.selected.noPrestamo}" />
+
+                        <p:outputLabel value="#{myBundle.EditRentadevolucionLabel_fechaPrestamo}" for="fechaPrestamo" />
+                        <p:calendar id="fechaPrestamo" pattern="MM/dd/yyyy" value="#{rentadevolucionController.selected.fechaPrestamo}" title="#{myBundle.EditRentadevolucionTitle_fechaPrestamo}" required="true" requiredMessage="#{myBundle.EditRentadevolucionRequiredMessage_fechaPrestamo}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRentadevolucionLabel_fechaDevolucion}" for="fechaDevolucion" />
+                        <p:calendar id="fechaDevolucion" pattern="MM/dd/yyyy" value="#{rentadevolucionController.selected.fechaDevolucion}" title="#{myBundle.EditRentadevolucionTitle_fechaDevolucion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRentadevolucionLabel_comentario}" for="comentario" />
+                        <p:inputText id="comentario" value="#{rentadevolucionController.selected.comentario}" title="#{myBundle.EditRentadevolucionTitle_comentario}" required="true" requiredMessage="#{myBundle.EditRentadevolucionRequiredMessage_comentario}" size="240" maxlength="240"/>
+
+                        <p:outputLabel value="#{myBundle.EditRentadevolucionLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{rentadevolucionController.selected.estado}" required="true" requiredMessage="#{myBundle.EditRentadevolucionRequiredMessage_estado}"/>
+
+                        <p:outputLabel value="#{myBundle.EditRentadevolucionLabel_idEmpleado}" for="idEmpleado" />
+                        <p:selectOneMenu id="idEmpleado" value="#{rentadevolucionController.selected.idEmpleado}" required="true" requiredMessage="#{myBundle.EditRentadevolucionRequiredMessage_idEmpleado}" converter="empleadoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{empleadoController.items}"
+                                           var="idEmpleadoItem"
+                                           itemValue="#{idEmpleadoItem}"
+                                           itemLabel="#{idEmpleadoItem.nombre.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditRentadevolucionLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{rentadevolucionController.selected.idEquipo}" required="true" requiredMessage="#{myBundle.EditRentadevolucionRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditRentadevolucionLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{rentadevolucionController.selected.idUsuario}" required="true" requiredMessage="#{myBundle.EditRentadevolucionRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.nombre.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rentadevolucionController.save}" value="#{myBundle.Save}" update="display,:RentadevolucionListForm:datalist,:RentadevolucionListForm:RentadevolucionDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RentadevolucionEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RentadevolucionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

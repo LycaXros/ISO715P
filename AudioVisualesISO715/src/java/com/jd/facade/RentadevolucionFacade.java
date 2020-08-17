@@ -19,7 +19,7 @@ import com.jd.models.Usuario;
 
 /**
  *
- * @author Jesus Dicent
+ * @author Master
  */
 @Stateless
 public class RentadevolucionFacade extends AbstractFacade<Rentadevolucion> {

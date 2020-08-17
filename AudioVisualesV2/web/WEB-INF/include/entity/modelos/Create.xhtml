@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ModelosCreateDlg" widgetVar="ModelosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateModelosTitle}" closeOnEscape="true">
+
+            <h:form id="ModelosCreateForm">
+
+                <h:panelGroup id="display" rendered="#{modelosController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateModelosLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{modelosController.selected.descripcion}" title="#{myBundle.CreateModelosTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateModelosRequiredMessage_descripcion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.CreateModelosLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{modelosController.selected.estado}" required="true" requiredMessage="#{myBundle.CreateModelosRequiredMessage_estado}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateModelosLabel_idMarca}" for="idMarca" />
+                        <p:selectOneMenu id="idMarca" value="#{modelosController.selected.idMarca}" required="true" requiredMessage="#{myBundle.CreateModelosRequiredMessage_idMarca}" converter="marcasConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{marcasController.items}"
+                                           var="idMarcaItem"
+                                           itemValue="#{idMarcaItem}"
+                                           itemLabel="#{idMarcaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{modelosController.saveNew}" value="#{myBundle.Save}" update="display,:ModelosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ModelosCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ModelosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

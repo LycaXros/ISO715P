@@ -32,17 +32,6 @@
 
                         <p:outputLabel value="#{myBundle.EditEmpleadoLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{empleadoController.selected.estado}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_estado}"/>
-
-                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_credencial}" for="credencial" />
-                        <p:selectOneMenu id="credencial" value="#{empleadoController.selected.credencial}"  converter="credencialConverter">
-                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{credencialController.items}"
-                                           var="credencialItem"
-                                           itemValue="#{credencialItem}"
-                                           itemLabel="#{credencialItem.username.toString()}"
-                                           />
-
-                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{empleadoController.save}" value="#{myBundle.Save}" update="display,:EmpleadoListForm:datalist,:EmpleadoListForm:EmpleadoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EmpleadoEditDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>

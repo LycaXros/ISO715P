@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="UsuarioEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditUsuarioTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:UsuarioListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="UsuarioEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{usuarioController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditUsuarioLabel_idusuario}" for="idusuario" />
+                            <h:outputText id="idusuario" value="#{usuarioController.selected.idusuario}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditUsuarioLabel_nombre}" for="nombre" />
+                            <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{myBundle.EditUsuarioTitle_nombre}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_nombre}" size="150" maxlength="150"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditUsuarioLabel_cedula}" for="cedula" />
+                            <p:inputText id="cedula" value="#{usuarioController.selected.cedula}" title="#{myBundle.EditUsuarioTitle_cedula}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_cedula}" size="15" maxlength="15"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditUsuarioLabel_noCarnet}" for="noCarnet" />
+                            <p:inputText id="noCarnet" value="#{usuarioController.selected.noCarnet}" title="#{myBundle.EditUsuarioTitle_noCarnet}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_noCarnet}" size="10" maxlength="10"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditUsuarioLabel_estado}" for="estado" />
+                            <p:selectBooleanCheckbox id="estado" value="#{usuarioController.selected.estado}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_estado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditUsuarioLabel_idTipoPersona}" for="idTipoPersona" />
+                            <p:selectOneMenu id="idTipoPersona" value="#{usuarioController.selected.idTipoPersona}"  converter="tipopersonaConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipopersonaController.items}"
+                                               var="idTipoPersonaItem"
+                                               itemValue="#{idTipoPersonaItem}"
+                                               itemLabel="#{idTipoPersonaItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditUsuarioLabel_idTipoUsuario}" for="idTipoUsuario" />
+                            <p:selectOneMenu id="idTipoUsuario" value="#{usuarioController.selected.idTipoUsuario}"  converter="tipousuarioConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipousuarioController.items}"
+                                               var="idTipoUsuarioItem"
+                                               itemValue="#{idTipoUsuarioItem}"
+                                               itemLabel="#{idTipoUsuarioItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{usuarioController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:UsuarioListPage:UsuarioListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:UsuarioListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

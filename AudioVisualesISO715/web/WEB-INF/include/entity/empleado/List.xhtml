@@ -16,7 +16,6 @@
                 <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EmpleadoListForm:deleteButton').click();" icon="ui-icon-trash"/>
                 <p:separator/>
                 <p:menuitem value="#{myBundle.EmpleadoMenuItem_rentadevolucionCollection}" icon="ui-icon-search"  action="#{empleadoController.navigateRentadevolucionCollection}" disabled="#{empleadoController.isRentadevolucionCollectionEmpty}" ajax="false"/>  
-                <p:menuitem value="#{myBundle.EmpleadoMenuItem_credencial}" icon="ui-icon-search"  actionListener="#{empleadoController.prepareCredencial}" update=":CredencialViewForm" oncomplete="PF('CredencialViewDialog').show()" disabled="#{empty empleadoController.selected.credencial}"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
                          value="#{empleadoController.items}"
@@ -39,9 +38,9 @@
                 -->
 
 
-                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpleadoDataTableContextMenu" listener="#{empleadoController.resetParents}"/>
-                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpleadoDataTableContextMenu" listener="#{empleadoController.resetParents}"/>
-                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{empleadoController.resetParents}"/>
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpleadoDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpleadoDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
                 <p:ajax event="rowDblselect" onsuccess="document.getElementById('EmpleadoListForm:viewButton').click();"/>
 
                 <p:column sortBy="#{item.idEmpleado}" filterBy="#{item.idEmpleado}">
@@ -93,14 +92,6 @@
                     <h:selectBooleanCheckbox id="estado" value="#{item.estado}" title="#{myBundle.EditEmpleadoTitle_estado}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_estado}" disabled="true"/>
                 </p:column>
 
-                <ui:remove>
-                    <p:column sortBy="#{item.credencial.username}" filterBy="#{item.credencial.username}">
-                        <f:facet name="header">
-                            <h:outputText value="#{myBundle.ListEmpleadoTitle_credencial}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.credencial.username}"/>
-                    </p:column>
-                </ui:remove>
 
             </p:dataTable>
 

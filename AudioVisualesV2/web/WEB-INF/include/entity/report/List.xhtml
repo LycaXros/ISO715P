@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ReporteRentasForm">
+
+        <p:growl id="msgs" showDetail="true" />
+        <h2>Buscar Rentas</h2>
+        <div class="p-grid">
+            <div class="p-col-1"></div>
+            <div class="p-col-2">
+
+                <p:outputLabel for="fechaInicio" value="Fecha Inicio" />
+                <p:calendar id="fechaInicio" value="#{reporteVentaBean.model.fechaInicio}"   required="true" pattern="yyyy-MM-dd"/>
+            </div>
+            <div class="p-col-2">
+                <p:outputLabel for="fechaFin" value="Fecha Fin" />
+                <p:calendar id="fechaFin" value="#{reporteVentaBean.model.fechaFin}"  required="true" pattern="yyyy-MM-dd" />                
+            </div>
+            <div class="p-col-1">
+                <p:commandButton id="viewButton"  icon="ui-icon-search" value="#{myBundle.View}" update=":growl,datalist"   actionListener="#{reporteVentaBean.BuscarDatos}" />
+            </div>
+        </div>
+        <p:dataTable id="datalist"
+                     value="#{reporteVentaBean.items}"
+                     lazy="false"
+                     rowKey="#{item.noPrestamo}"
+                     var="item"
+                     paginator="true"
+                     rows="10"
+                     rowsPerPageTemplate="10,20,30,40,50">
+
+
+            <p:column sortBy="#{item.noPrestamo}" >
+                <f:facet name="header">
+                    <h:outputText value="Numero Prestamo"/>
+                </f:facet>
+                <h:outputText value="#{item.noPrestamo}"/>
+            </p:column>
+
+            <p:column sortBy="#{item.fechaPrestamo}" >
+                <f:facet name="header">
+                    <h:outputText value="Fecha Prestamo"/>
+                </f:facet>
+                <h:outputText value="#{item.fechaPrestamo}">
+                    <f:convertDateTime pattern="dd-MMM-yyyy" />
+                </h:outputText>
+            </p:column>
+            <p:column sortBy="#{item.fechaDevolucion}" >
+                <f:facet name="header">
+                    <h:outputText value="Fecha Devolucion"/>
+                </f:facet>
+                <h:outputText value="#{item.fechaDevolucion}">
+                    <f:convertDateTime pattern="dd-MMM-yyyy" />
+                </h:outputText>
+            </p:column>
+
+            <p:column sortBy="#{item.idUsuario.nombre}" >
+                <f:facet name="header">
+                    <h:outputText value="Usuario"/>
+                </f:facet>
+                <h:outputText value="#{item.idUsuario.nombre}"/>
+            </p:column>
+            <p:column sortBy="#{item.idEquipo.descripcion}" >
+                <f:facet name="header">
+                    <h:outputText value="Equipo"/>
+                </f:facet>
+                <h:outputText value="#{item.idEquipo.descripcion}"/>
+            </p:column>
+            <p:column sortBy="#{item.idEquipo.rentado}" >
+                <f:facet name="header">
+                    <h:outputText value="Estado Renta"/>
+                </f:facet>
+                <h:outputText value="#{item.estado ? item.idEquipo.rentado : 'Devuelto'}"/>
+            </p:column>
+
+
+        </p:dataTable>
+        <h3>Export Page Data Only</h3>
+
+        <h:commandLink>
+            <p:graphicImage value="#{appBean.resourcePath}img/pdf.png" width="24"/>
+            <p:dataExporter type="pdf" target="datalist" fileName="MiniReporte"/>
+        </h:commandLink>
+    </h:form>
+
+</ui:composition>

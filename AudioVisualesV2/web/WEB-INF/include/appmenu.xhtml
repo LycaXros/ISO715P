@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.CredencialHeading}..." outcome="/app/credencial/index" />
+                    <p:menuitem value="#{myBundle.EmpleadoHeading}..." outcome="/app/empleado/index" />
+                    <p:menuitem value="#{myBundle.EquipoHeading}..." outcome="/app/equipo/index" />
+                    <p:menuitem value="#{myBundle.MarcasHeading}..." outcome="/app/marcas/index" />
+                    <p:menuitem value="#{myBundle.ModelosHeading}..." outcome="/app/modelos/index" />
+                    <p:submenu label="Renta Devolucion">
+                        <p:menuitem value="#{myBundle.RentadevolucionHeading}..." outcome="/app/rentadevolucion/index" />
+                        <p:menuitem value="Procedso Devolucion" outcome="/app/rentadevolucion/devolver" />
+
+                    </p:submenu>
+                    <p:menuitem value="#{myBundle.RolHeading}..." outcome="/app/rol/index" />
+                    <p:menuitem value="#{myBundle.TecconexionHeading}..." outcome="/app/tecconexion/index" />
+                    <p:menuitem value="#{myBundle.TipoequipoHeading}..." outcome="/app/tipoequipo/index" />
+                    <p:menuitem value="#{myBundle.TipopersonaHeading}..." outcome="/app/tipopersona/index" />
+                    <p:menuitem value="#{myBundle.TipousuarioHeading}..." outcome="/app/tipousuario/index" />
+                    <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/app/usuario/index" />
+                </p:submenu>
+                <p:submenu label="Reportes">
+                    <p:menuitem value="Reporte Ventas" outcome="/app/report/index"/>
+                </p:submenu>
+                <p:menuitem value="#{myBundle.Mobile}" outcome="/mobile/index" icon="ui-icon-signal"  style="display: none;"/>
+                <p:menuitem value="Salir" actionListener="#{UserLoginView.logout}" icon="ui-icon-close"
+                            oncomplete="handleLoggOutRequest(xhr, status, args)"/>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

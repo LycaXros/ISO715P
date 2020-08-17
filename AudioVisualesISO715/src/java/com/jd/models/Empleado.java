@@ -18,7 +18,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,9 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Empleado.findByFechaIngreso", query = "SELECT e FROM Empleado e WHERE e.fechaIngreso = :fechaIngreso")
     , @NamedQuery(name = "Empleado.findByEstado", query = "SELECT e FROM Empleado e WHERE e.estado = :estado")})
 public class Empleado implements Serializable {
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "empleado")
-    private Credencial credencial;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -176,14 +172,6 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return "com.jd.models.Empleado[ idEmpleado=" + idEmpleado + " ]";
-    }
-
-    public Credencial getCredencial() {
-        return credencial;
-    }
-
-    public void setCredencial(Credencial credencial) {
-        this.credencial = credencial;
     }
     
 }

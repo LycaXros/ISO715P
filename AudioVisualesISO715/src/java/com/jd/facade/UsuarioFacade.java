@@ -20,7 +20,7 @@ import java.util.Collection;
 
 /**
  *
- * @author Jesus Dicent
+ * @author Master
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {

@@ -18,7 +18,7 @@ import java.util.Collection;
 
 /**
  *
- * @author Jesus Dicent
+ * @author Master
  */
 @Stateless
 public class TipousuarioFacade extends AbstractFacade<Tipousuario> {

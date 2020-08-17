@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="EquipoEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditEquipoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:EquipoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="EquipoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{equipoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditEquipoLabel_idEquipo}" for="idEquipo" />
+                            <h:outputText id="idEquipo" value="#{equipoController.selected.idEquipo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEquipoLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" value="#{equipoController.selected.descripcion}" title="#{myBundle.EditEquipoTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditEquipoRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEquipoLabel_noSerial}" for="noSerial" />
+                            <p:inputText id="noSerial" value="#{equipoController.selected.noSerial}" title="#{myBundle.EditEquipoTitle_noSerial}" required="true" requiredMessage="#{myBundle.EditEquipoRequiredMessage_noSerial}" size="45" maxlength="45"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEquipoLabel_serviceTag}" for="serviceTag" />
+                            <p:inputText id="serviceTag" value="#{equipoController.selected.serviceTag}" title="#{myBundle.EditEquipoTitle_serviceTag}" required="true" requiredMessage="#{myBundle.EditEquipoRequiredMessage_serviceTag}" size="45" maxlength="45"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEquipoLabel_estado}" for="estado" />
+                            <p:selectBooleanCheckbox id="estado" value="#{equipoController.selected.estado}" required="true" requiredMessage="#{myBundle.EditEquipoRequiredMessage_estado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEquipoLabel_idModelo}" for="idModelo" />
+                            <p:selectOneMenu id="idModelo" value="#{equipoController.selected.idModelo}"  converter="modelosConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{modelosController.items}"
+                                               var="idModeloItem"
+                                               itemValue="#{idModeloItem}"
+                                               itemLabel="#{idModeloItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEquipoLabel_idTecConexion}" for="idTecConexion" />
+                            <p:selectOneMenu id="idTecConexion" value="#{equipoController.selected.idTecConexion}"  converter="tecconexionConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tecconexionController.items}"
+                                               var="idTecConexionItem"
+                                               itemValue="#{idTecConexionItem}"
+                                               itemLabel="#{idTecConexionItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEquipoLabel_idTipoEquipo}" for="idTipoEquipo" />
+                            <p:selectOneMenu id="idTipoEquipo" value="#{equipoController.selected.idTipoEquipo}"  converter="tipoequipoConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoequipoController.items}"
+                                               var="idTipoEquipoItem"
+                                               itemValue="#{idTipoEquipoItem}"
+                                               itemLabel="#{idTipoEquipoItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{equipoController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:EquipoListPage:EquipoListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:EquipoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

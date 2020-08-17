@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipopersonaViewDlg" widgetVar="TipopersonaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTipopersonaTitle}" closeOnEscape="true">
+
+            <h:form id="TipopersonaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipopersonaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTipopersonaLabel_idTipoPesona}"/>
+                        <h:outputText value="#{tipopersonaController.selected.idTipoPesona}" title="#{myBundle.ViewTipopersonaTitle_idTipoPesona}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipopersonaLabel_descripcion}"/>
+                        <h:outputText value="#{tipopersonaController.selected.descripcion}" title="#{myBundle.ViewTipopersonaTitle_descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipopersonaLabel_estado}"/>
+                        <p:selectBooleanCheckbox id="estado" value="#{tipopersonaController.selected.estado}" title="#{myBundle.EditTipopersonaTitle_estado}" required="true" requiredMessage="#{myBundle.EditTipopersonaRequiredMessage_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TipopersonaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

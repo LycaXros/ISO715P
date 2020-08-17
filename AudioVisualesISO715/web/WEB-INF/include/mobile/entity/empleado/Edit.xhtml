@@ -50,19 +50,6 @@
                             <p:outputLabel value="#{myBundle.EditEmpleadoLabel_estado}" for="estado" />
                             <p:selectBooleanCheckbox id="estado" value="#{empleadoController.selected.estado}" required="true" requiredMessage="#{myBundle.EditEmpleadoRequiredMessage_estado}"/>
                         </pm:field>
-
-                        <pm:field>
-                            <p:outputLabel value="#{myBundle.EditEmpleadoLabel_credencial}" for="credencial" />
-                            <p:selectOneMenu id="credencial" value="#{empleadoController.selected.credencial}"  converter="credencialConverter">
-                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
-                                <f:selectItems value="#{credencialController.items}"
-                                               var="credencialItem"
-                                               itemValue="#{credencialItem}"
-                                               itemLabel="#{credencialItem.username.toString()}"
-                                               />
-
-                            </p:selectOneMenu>
-                        </pm:field>
                     </p:outputPanel>
                     <p:commandButton actionListener="#{empleadoController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:EmpleadoListPage:EmpleadoListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:EmpleadoListPage')}"/>
 

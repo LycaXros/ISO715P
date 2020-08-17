@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Audio Visuales SHOP</ui:insert></title>
+        <h:outputStylesheet library="css" name="pfcrud.css"/>
+        <h:outputStylesheet library="css" name="primeflex.css"/>
+        <h:outputScript library="scripts" name="pfcrud.js"/>
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="3000"/>
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="100" header="#{myBundle.AppName}">
+                <!-- Menu here. Also a layout and a way to log a user out -->
+                <ui:include src="/WEB-INF/include/appmenu.xhtml"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="100">
+                <p:panel>
+                    <div class="p-grid">
+                        <div class="p-col-6">
+                            <p>
+                                By Jesus Francisco Dicent Agüero 2018-1523
+                            </p>
+                        </div>
+                        <div class="p-col-6">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/LOGO_UNAPEC.png" alt="Imagen Apec" height="50px"/> 
+                        </div>
+                    </div>
+                </p:panel>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+
+        <script type="text/javascript">
+            function handleLoggOutRequest(xhr, status, args) {
+                if (args.loggetOut) {
+                    window.location = args.view;
+                }
+            }
+        </script>
+    </h:body>
+
+</html>

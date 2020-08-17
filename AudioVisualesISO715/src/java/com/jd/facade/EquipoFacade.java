@@ -21,7 +21,7 @@ import java.util.Collection;
 
 /**
  *
- * @author Jesus Dicent
+ * @author Master
  */
 @Stateless
 public class EquipoFacade extends AbstractFacade<Equipo> {
